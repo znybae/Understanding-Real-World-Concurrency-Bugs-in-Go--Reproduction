@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+\graphicspath{{figures/}}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  breaklines=true,
+  columns=fullflexible
+}
+
+% TODO marker, remove before the final version
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+% ---------- Title ----------
+\title{Reproducing \emph{Understanding Real-World Concurrency Bugs in Go}\\
+\large CS340 Operating Systems -- Research Paper Replication}
+
+\author{
+  WANG Yue (1240028733) \and
+  CHENG Yuxuan (1240029326) \and
+  ZHU Nuoyan (1240027310) \and
+  WANG Jiuzhou (1240028606)
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\todo{One paragraph: which paper, which claims we tested, our setup, and the overall verdict.}
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/setup}
+\input{sections/results}
+\input{sections/analysis}
+\input{sections/extension}
+\input{sections/conclusion}
+
+\section*{Contribution Statement}
+\todo{One line per member describing what they did, consistent with the Git history.}
+\begin{itemize}
+  \item WANG Yue: Engineering infrastructure and environment (Dockerfile, scripts, README).
+  \item CHENG Yuxuan: Reproduction of channel-related blocking bugs (\texttt{bugs/channel/}).
+  \item ZHU Nuoyan: Reproduction of shared-memory bugs and race detection (\texttt{bugs/shared\_memory/}).
+  \item WANG Jiuzhou: Extension experiment and report coordination (\texttt{extension/}, \texttt{report/}).
+\end{itemize}
+
+\section*{AI Usage Statement}
+\todo{State which AI tools were used, for what, and how their output was checked.}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

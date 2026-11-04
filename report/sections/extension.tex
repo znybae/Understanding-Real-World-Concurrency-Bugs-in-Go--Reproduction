@@ -1,0 +1,16 @@
+\section{Extension}
+\label{sec:extension}
+
+\subsection{Question and Motivation}
+Do the same bugs still behave the same way, and are they still (un)detected,
+under a modern Go toolchain? Go has changed since the paper, notably per-iteration
+loop variables (Go 1.22) and asynchronous goroutine preemption (Go 1.14).
+See \texttt{extension/README.md} for the full plan.
+
+\subsection{Design}
+One factor changed at a time: the Go toolchain version (1.10.8 vs.\ a modern 1.23+
+release). Same hardware, same bug programs, same trigger and judging procedure.
+\todo{Exact versions and run counts.}
+
+\subsection{Result}
+\todo{Outcome, interpreted with respect to claims C2 and C3.}

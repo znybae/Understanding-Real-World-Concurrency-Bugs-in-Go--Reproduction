@@ -1,0 +1,26 @@
+\section{Introduction and Claims}
+\label{sec:intro}
+
+\subsection{Paper and Problem}
+Tu et al.~\cite{tu2019go} present the first empirical study of concurrency bugs in
+real-world Go programs. Go promotes message passing (channels) alongside traditional
+shared-memory synchronization, and the paper asks whether this makes concurrent
+programs less error-prone. The authors study bugs collected from six large open-source
+Go applications (Docker, Kubernetes, etcd, gRPC, CockroachDB and BoltDB), classify them
+as \emph{blocking} or \emph{non-blocking} and by cause (shared memory vs.\ message
+passing), and evaluate Go's built-in deadlock detector and data race detector.
+\todo{Check the numbers and wording against the paper before submission.}
+
+\subsection{Claims Tested}
+\todo{Pick 1--3 claims and link each to a table or figure in the paper.}
+\begin{enumerate}
+  \item \textbf{C1:} Message passing causes a substantial share of blocking bugs.
+        \todo{link to Table/Figure X of the paper}
+  \item \textbf{C2:} Go's built-in runtime deadlock detector detects only a small
+        fraction of the reproduced blocking bugs. \todo{link to Table/Figure X}
+  \item \textbf{C3:} Go's data race detector detects only part of the reproduced
+        non-blocking bugs. \todo{link to Table/Figure X}
+\end{enumerate}
+
+\subsection{Scope}
+\todo{Which bugs from the paper's benchmark we reproduce, how many runs, and any reduced scale.}
