@@ -1,0 +1,12 @@
+=== RUN   TestWaitGroupFixed
+Starting task 0
+Starting task 1
+Task 0 finished
+Waiting outside the loop
+Task 1 finished
+All tasks completed
+--- PASS: TestWaitGroupFixed (0.01s)
+PASS
+ok  	_/workspace/bugs/shared_memory/waitgroup_deadlock/fixed	1.382s
+COMMAND_EXIT_CODE=0
+RESULT=FIXED_PASS

@@ -34,7 +34,10 @@ echo "=== 1. Channel Bug Suite ==="
 echo ""
 echo "=== 2. Shared Memory Bug Suite ==="
 # 预留执行位，支持启用 -race 竞态检测器
-# run_case "shared_memory" "race_demo" "go test -race -v ./bugs/shared_memory/..."
+run_case "shared_memory" "docker_25384_buggy" "bash bugs/shared_memory/check_result.sh docker_25384_buggy timeout 120s go test -race -v -count=1 -timeout=5s ./bugs/shared_memory/waitgroup_deadlock"
+run_case "shared_memory" "docker_25384_fixed" "bash bugs/shared_memory/check_result.sh docker_25384_fixed timeout 120s go test -race -v -count=1 -timeout=5s ./bugs/shared_memory/waitgroup_deadlock/fixed"
+run_case "shared_memory" "docker_27037_buggy" "bash bugs/shared_memory/check_result.sh docker_27037_buggy timeout 120s go test -race -v -count=1 -timeout=10s ./bugs/shared_memory/docker_race"
+run_case "shared_memory" "docker_27037_fixed" "bash bugs/shared_memory/check_result.sh docker_27037_fixed timeout 120s go test -race -v -count=1 -timeout=10s ./bugs/shared_memory/docker_race/fixed"
 
 echo ""
 echo "=========================================="

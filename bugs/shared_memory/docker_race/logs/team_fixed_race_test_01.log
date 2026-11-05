@@ -1,0 +1,8 @@
+=== RUN   TestDockerRaceFixed
+v1.18
+v1.17
+v1.19
+v1.20
+--- PASS: TestDockerRaceFixed (0.02s)
+PASS
+ok  	_/workspace/bugs/shared_memory/docker_race/fixed	1.253s
