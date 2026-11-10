@@ -1,5 +1,0 @@
-case,runs,expected_observations,indicator_mean,indicator_sample_std,at_least_three_runs
-docker_25384_buggy,3,3,1,0.0,True
-docker_25384_fixed,3,3,1,0.0,True
-docker_27037_buggy,3,3,1,0.0,True
-docker_27037_fixed,3,3,1,0.0,True
