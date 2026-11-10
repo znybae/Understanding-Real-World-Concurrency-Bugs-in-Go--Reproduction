@@ -1,0 +1,13 @@
+iteration	case	command_exit_code	checker_exit_code	result	log
+1	docker_25384_buggy	1	0	EXPECTED_BLOCKING	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_buggy_1.log
+1	docker_25384_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_fixed_1.log
+1	docker_27037_buggy	1	0	EXPECTED_RACE	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_buggy_1.log
+1	docker_27037_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_fixed_1.log
+2	docker_25384_buggy	1	0	EXPECTED_BLOCKING	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_buggy_2.log
+2	docker_25384_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_fixed_2.log
+2	docker_27037_buggy	1	0	EXPECTED_RACE	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_buggy_2.log
+2	docker_27037_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_fixed_2.log
+3	docker_25384_buggy	1	0	EXPECTED_BLOCKING	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_buggy_3.log
+3	docker_25384_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_25384_fixed_3.log
+3	docker_27037_buggy	1	0	EXPECTED_RACE	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_buggy_3.log
+3	docker_27037_fixed	0	0	FIXED_PASS	logs/shared_memory/run-20261105T053623Z-fbaaH0/docker_27037_fixed_3.log

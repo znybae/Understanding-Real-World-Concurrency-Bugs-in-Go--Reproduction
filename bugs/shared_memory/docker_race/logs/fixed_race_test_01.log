@@ -1,0 +1,8 @@
+=== RUN   TestDockerRaceFixed
+v1.20
+v1.18
+v1.17
+v1.19
+--- PASS: TestDockerRaceFixed (0.00s)
+PASS
+ok  	_/work/docker_race/fixed	1.058s

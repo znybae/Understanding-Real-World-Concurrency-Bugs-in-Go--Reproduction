@@ -1,0 +1,13 @@
+COMMAND=timeout 120s go test -race -v -count=1 -timeout=5s -run \^TestWaitGroupFixed\$ ./bugs/shared_memory/waitgroup_deadlock/fixed 
+=== RUN   TestWaitGroupFixed
+Starting task 0
+Starting task 1
+Task 0 finished
+Waiting outside the loop
+Task 1 finished
+All tasks completed
+--- PASS: TestWaitGroupFixed (0.00s)
+PASS
+ok  	_/workspace/bugs/shared_memory/waitgroup_deadlock/fixed	1.054s
+COMMAND_EXIT_CODE=0
+RESULT=FIXED_PASS

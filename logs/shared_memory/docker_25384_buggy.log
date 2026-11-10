@@ -1,0 +1,42 @@
+=== RUN   TestWaitGroupDeadlock
+Starting task 0
+Task 0 finished
+Waiting inside the loop
+panic: test timed out after 5s
+
+goroutine 4 [running]:
+testing.(*M).startAlarm.func1()
+	/usr/local/go/src/testing/testing.go:1240 +0x146
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:172 +0x52
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc4200cc000, 0x5c26ca, 0x15, 0x5c8180, 0xc420069c68)
+	/usr/local/go/src/testing/testing.go:825 +0x597
+testing.runTests.func1(0xc4200cc000)
+	/usr/local/go/src/testing/testing.go:1063 +0xa5
+testing.tRunner(0xc4200cc000, 0xc420069db0)
+	/usr/local/go/src/testing/testing.go:777 +0x16e
+testing.runTests(0xc4200b2020, 0x69d730, 0x1, 0x1, 0xc4200ca000)
+	/usr/local/go/src/testing/testing.go:1061 +0x4e2
+testing.(*M).Run(0xc4200ca000, 0x0)
+	/usr/local/go/src/testing/testing.go:978 +0x2ce
+main.main()
+	_testmain.go:42 +0x22b
+
+goroutine 20 [semacquire]:
+sync.runtime_Semacquire(0xc4200a20ac)
+	/usr/local/go/src/runtime/sema.go:56 +0x39
+sync.(*WaitGroup).Wait(0xc4200a20a0)
+	/usr/local/go/src/sync/waitgroup.go:129 +0xb3
+_/workspace/bugs/shared_memory/waitgroup_deadlock.main()
+	/workspace/bugs/shared_memory/waitgroup_deadlock/waitgroup_deadlock.go:25 +0x1c1
+_/workspace/bugs/shared_memory/waitgroup_deadlock.TestWaitGroupDeadlock(0xc4200cc0f0)
+	/workspace/bugs/shared_memory/waitgroup_deadlock/docker_25384_test.go:8 +0x30
+testing.tRunner(0xc4200cc0f0, 0x5c8180)
+	/usr/local/go/src/testing/testing.go:777 +0x16e
+created by testing.(*T).Run
+	/usr/local/go/src/testing/testing.go:824 +0x565
+FAIL	_/workspace/bugs/shared_memory/waitgroup_deadlock	5.062s
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_BLOCKING

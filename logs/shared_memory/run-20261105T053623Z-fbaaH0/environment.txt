@@ -1,0 +1,45 @@
+Thu Nov  5 05:36:23 UTC 2026
+go version go1.10.8 linux/amd64
+linux
+amd64
+1
+gcc
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+Linux fff9ef99e6e6 7.0.14-linuxkit #1 SMP PREEMPT Fri Oct 30 13:45:20 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+REPEATS=3
+GOMAXPROCS=unset
+GORACE=exitcode=66
+AVAILABLE_PROCESSORS=8
+COMMIT=9d0e31c0b6a0b528e4626a50bbf37372f9452d0f
+WORKTREE_STATUS:
+ M .gitignore
+ M README.md
+ M bugs/shared_memory/README.md
+ M bugs/shared_memory/check_result.sh
+ M extension/README.md
+ M report/main.tex
+ M report/sections/results.tex
+ M report/sections/setup.tex
+ M scripts/run_all.sh
+?? .dockerignore
+?? docs/
+?? logs/shared_memory/README.md
+?? logs/shared_memory/run-20261105T053623Z-fbaaH0/
+?? scripts/summarize_runs.py
+Note: generated logs can make this status dirty; see input hashes.
