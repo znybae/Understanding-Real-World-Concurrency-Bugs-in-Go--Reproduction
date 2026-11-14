@@ -9,10 +9,14 @@ def main():
     path = Path(sys.argv[1])
     with path.open(newline="") as stream:
         rows = list(csv.DictReader(stream, delimiter="\t"))
-    expected = {"docker_25384_buggy": "EXPECTED_BLOCKING",
-                "docker_25384_fixed": "FIXED_PASS",
-                "docker_27037_buggy": "EXPECTED_RACE",
-                "docker_27037_fixed": "FIXED_PASS"}
+    expected = {
+        "docker_24007_buggy": "EXPECTED_PANIC",
+        "k8s_5316_buggy": "EXPECTED_BLOCKING",
+        "docker_25384_buggy": "EXPECTED_BLOCKING",
+        "docker_25384_fixed": "FIXED_PASS",
+        "docker_27037_buggy": "EXPECTED_RACE",
+        "docker_27037_fixed": "FIXED_PASS",
+    }
     output = path.with_name("statistics.csv")
     with output.open("w", newline="") as stream:
         writer = csv.writer(stream)

@@ -18,9 +18,10 @@ if [[ "$(go version)" != "go version go1.10.8 linux/amd64" ]] ||
 fi
 export LC_ALL=C
 export GORACE='exitcode=66'
+
 # Never overwrite a previous evidence run.
-mkdir -p logs/shared_memory || exit 2
-run_dir=$(mktemp -d "logs/shared_memory/run-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX") || exit 2
+mkdir -p logs/full_suite || exit 2
+run_dir=$(mktemp -d "logs/full_suite/run-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX") || exit 2
 printf 'Evidence directory: %s\n' "$run_dir"
 {
     date -u
@@ -39,18 +40,26 @@ printf 'Evidence directory: %s\n' "$run_dir"
         echo 'COMMIT=unavailable (ZIP checkout); input hashes identify executed files'
     fi
 } > "$run_dir/environment.txt" 2>&1
-find bugs/shared_memory -type f \( -name '*.go' -o -name '*.sh' \) -print0 |
+
+find bugs -type f \( -name '*.go' -o -name '*.sh' \) -print0 |
     sort -z | xargs -0 sha256sum > "$run_dir/input_sha256.txt"
 sha256sum scripts/run_all.sh scripts/summarize_runs.py Dockerfile >> "$run_dir/input_sha256.txt"
+
 printf 'iteration\tcase\tcommand_exit_code\tchecker_exit_code\tresult\tlog\n' > "$run_dir/summary.tsv"
 failures=0
+
 run_case() {
-    local iteration="$1" case_name="$2" package="$3" test_name="$4" limit="$5"
+    local iteration="$1" suite="$2" case_name="$3" package="$4" test_name="$5" limit="$6"
     local log_file="$run_dir/${case_name}_${iteration}.log" checker_status result command_status
-    local -a cmd=(timeout 120s go test -race -v -count=1 "-timeout=$limit" -run "^${test_name}$" "$package")
+    local -a cmd
+    if [[ "$suite" == "shared_memory" ]]; then
+        cmd=(timeout 120s go test -race -v -count=1 "-timeout=$limit" -run "^${test_name}$" "$package")
+    else
+        cmd=(timeout 120s go test -v -count=1 "-timeout=$limit" -run "^${test_name}$" "$package")
+    fi
     {
         printf 'COMMAND='; printf '%q ' "${cmd[@]}"; printf '\n'
-        bash bugs/shared_memory/check_result.sh "$case_name" "${cmd[@]}"
+        bash "bugs/${suite}/check_result.sh" "$case_name" "${cmd[@]}"
     } > "$log_file" 2>&1
     checker_status=$?
     result=$(sed -n 's/^RESULT=//p' "$log_file" | tail -n 1)
@@ -58,16 +67,22 @@ run_case() {
     result=${result:-CHECKER_ERROR}
     command_status=${command_status:-NA}
     printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$iteration" "$case_name" "$command_status" "$checker_status" "$result" "$log_file" >> "$run_dir/summary.tsv"
-    printf '[%s/%s] %s: %s (checker=%s)\n' "$iteration" "$repeats" "$case_name" "$result" "$checker_status"
+    printf '[%s/%s] [%s] %s: %s (checker=%s)\n' "$iteration" "$repeats" "$suite" "$case_name" "$result" "$checker_status"
     if (( checker_status != 0 )); then failures=$((failures + 1)); fi
 }
-echo 'Channel suite: SKIPPED (no registered cases in this snapshot)'
+
 for ((iteration=1; iteration<=repeats; iteration++)); do
-    run_case "$iteration" docker_25384_buggy ./bugs/shared_memory/waitgroup_deadlock TestWaitGroupDeadlock 5s
-    run_case "$iteration" docker_25384_fixed ./bugs/shared_memory/waitgroup_deadlock/fixed TestWaitGroupFixed 5s
-    run_case "$iteration" docker_27037_buggy ./bugs/shared_memory/docker_race TestDockerRace 10s
-    run_case "$iteration" docker_27037_fixed ./bugs/shared_memory/docker_race/fixed TestDockerRaceFixed 10s
+    # Channel suite (Block 2)
+    run_case "$iteration" channel docker_24007_buggy ./bugs/channel TestDocker24007 10s
+    run_case "$iteration" channel k8s_5316_buggy ./bugs/channel TestK8s5316 5s
+
+    # Shared memory suite (Block 3)
+    run_case "$iteration" shared_memory docker_25384_buggy ./bugs/shared_memory/waitgroup_deadlock TestWaitGroupDeadlock 5s
+    run_case "$iteration" shared_memory docker_25384_fixed ./bugs/shared_memory/waitgroup_deadlock/fixed TestWaitGroupFixed 5s
+    run_case "$iteration" shared_memory docker_27037_buggy ./bugs/shared_memory/docker_race TestDockerRace 10s
+    run_case "$iteration" shared_memory docker_27037_fixed ./bugs/shared_memory/docker_race/fixed TestDockerRaceFixed 10s
 done
+
 python3 scripts/summarize_runs.py "$run_dir/summary.tsv" || exit 2
 printf 'Unexpected/not-reproduced checks: %s\n' "$failures"
 if (( failures > 0 )); then exit 1; fi
