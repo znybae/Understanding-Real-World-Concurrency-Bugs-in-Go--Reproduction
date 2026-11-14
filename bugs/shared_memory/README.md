@@ -129,26 +129,32 @@ contain the previous test filenames; they have not been edited.
 
 ## Batch execution
 
-From the repository root on the Mac host, run:
+From the repository root, run three rounds in the shared Docker image:
 
-    docker run --rm --platform linux/amd64 -v "$PWD:/workspace" -w /workspace cs340-go-bugs bash scripts/run_all.sh
+```bash
+docker run --rm --platform linux/amd64 \
+  -v "$PWD:/workspace" -w /workspace \
+  -e REPEATS=3 cs340-go-bugs bash scripts/run_all.sh
+```
 
-The shared-memory suite runs four cases separately with time limits.
-Logs are written to logs/shared_memory/ at the repository root.
-Each batch run overwrites these four log files.
+The runner saves the raw output, environment details, input hashes,
+per-run results, and summary statistics in a new local directory under
+`logs/shared_memory/`. Keep generated logs local.
 
-| Case | Test exit code | Expected checker result | Log filename |
-| --- | --- | --- | --- |
-| docker_25384_buggy | 1 | EXPECTED_BLOCKING | docker_25384_buggy.log |
-| docker_25384_fixed | 0 | FIXED_PASS | docker_25384_fixed.log |
-| docker_27037_buggy | 1 | EXPECTED_RACE | docker_27037_buggy.log |
-| docker_27037_fixed | 0 | FIXED_PASS | docker_27037_fixed.log |
+### Week 2 validation
 
-The checker records COMMAND_EXIT_CODE and RESULT in each log.
-A suite PASS means the expected behavior was observed, including
-intentional blocking or a detected race in a buggy version.
-Unexpected outcomes are marked UNEXPECTED_OR_NOT_REPRODUCED.
+On 2026-11-12, we ran the revised runner from base commit `75a90ac`
+with Go 1.10.8 on Linux amd64. All 12 checks matched the expected outcomes.
 
-One batch run produced all four expected results.
-This is a functional check, not a repeated-run statistical evaluation.
-The channel suite currently has no enabled cases.
+| Case | Observed outcome | Runs matching expectation |
+| --- | --- | --- |
+| Figure 5, buggy | Test timed out after 5 s with `sync.(*WaitGroup).Wait` in the stack | 3/3 |
+| Figure 5, fixed | Both tasks completed and the test passed | 3/3 |
+| Figure 8, buggy | The race detector reported `WARNING: DATA RACE` | 3/3 |
+| Figure 8, fixed | Each version from `v1.17` to `v1.20` appeared once and the test passed | 3/3 |
+
+For each case, the binary indicator for matching the expected outcome
+had a mean of 1.00 and a sample standard deviation of 0.00 across three
+runs. These statistics describe the four minimal test cases.
+
+Local evidence directory: `logs/shared_memory/run-20261112T094618Z-7ysnoJ/`.
