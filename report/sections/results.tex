@@ -1,6 +1,41 @@
 \section{Results}
 \label{sec:results}
 
+\subsection{Official Week~2 reproduction run}
+On 14 Nov 2026, Block~1 ran \texttt{scripts/run\_all.sh} with \texttt{REPEATS=3}
+inside the shared Go 1.10.8 linux/amd64 Docker image. All 18 checks (six cases
+$\times$ three runs) matched the expected checker outcome. For the binary
+indicator that a run matched its expected outcome, every case has a mean of
+$1.00$ and a sample standard deviation of $0.00$. These statistics describe
+only that indicator; they are not run times and are not the paper's aggregate
+detection rates.
+
+\begin{table}[h]
+  \centering
+  \caption{Official Week~2 outcomes (mean $\pm$ sample std of the
+    expected-outcome indicator over three runs).}
+  \label{tab:week2-outcomes}
+  \begin{tabular}{llccc}
+    \toprule
+    Case & Version & Expected result & Matches & Indicator mean $\pm$ std \\
+    \midrule
+    Kubernetes \#5316 & buggy & EXPECTED\_BLOCKING & 3/3 & $1.00 \pm 0.00$ \\
+    Docker \#24007    & buggy & EXPECTED\_PANIC    & 3/3 & $1.00 \pm 0.00$ \\
+    Docker \#25384    & buggy & EXPECTED\_BLOCKING & 3/3 & $1.00 \pm 0.00$ \\
+    Docker \#25384    & fixed & FIXED\_PASS        & 3/3 & $1.00 \pm 0.00$ \\
+    Docker \#27037    & buggy & EXPECTED\_RACE     & 3/3 & $1.00 \pm 0.00$ \\
+    Docker \#27037    & fixed & FIXED\_PASS        & 3/3 & $1.00 \pm 0.00$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The two blocking cases were exposed by the \texttt{go test} timeout, not by
+Go's runtime deadlock detector: none of the 18 logs contain
+\texttt{all goroutines are asleep - deadlock}. In the Figure~8 buggy runs the
+race detector fired every time, and the printed versions contained duplicates
+(for example \texttt{v1.19 v1.21 v1.21 v1.21}); the fixed version printed
+\texttt{v1.17} to \texttt{v1.20} once each in every run.
+
 \subsection{Paper vs.\ Ours}
 \begin{table}[h]
   \centering
@@ -30,6 +65,11 @@
 \input{tables/test_record}
 
 \subsection{Traceability}
-Raw evidence from \texttt{scripts/run\_all.sh} is written under
-\texttt{logs/full\_suite/} and is kept local.
-\todo{Copy the official Week~2 evidence directory into \texttt{results/} and, for each number, name the log file it comes from.}
+The official Week~2 evidence directory is
+\texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}.
+It contains \texttt{environment.txt}, \texttt{summary.tsv},
+\texttt{statistics.csv}, \texttt{input\_sha256.txt} and one \texttt{.log} file
+per case and iteration. Every number in \Cref{tab:week2-outcomes} and
+\Cref{tab:test-record} comes from that directory. The run recorded base commit
+\texttt{312d6da}, together with the uncommitted integration scripts that were
+merged later as pull request \#5 (\texttt{68df8a3}).
