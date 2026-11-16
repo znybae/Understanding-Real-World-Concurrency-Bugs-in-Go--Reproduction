@@ -2,42 +2,135 @@
 \label{sec:setup}
 
 \subsection{Starting Code}
-We start from the authors' bug collection~\cite{gobugsrepo}
-(\url{https://github.com/system-pclub/go-concurrency-bugs}).
-\todo{Commit hash used, and the list of files we added or modified.}
+The bug descriptions and original patches come from the authors' bug
+collection~\cite{gobugsrepo}
+(\url{https://github.com/system-pclub/go-concurrency-bugs}) and from the paper's
+figures. Each case is rewritten as a minimal stand-alone Go program or test rather
+than run inside the full Docker or Kubernetes code base.
+\todo{Record the commit hash of the authors' repository that we consulted.}
+
+The commands and checkers below match our repository after Week~2 pull requests
+\#3, \#4 and \#5 were merged (main commit \texttt{72cb93d}, 14 Nov 2026).
+The official Week~2 evidence run used base commit \texttt{312d6da} plus the then
+uncommitted integration scripts later merged in pull request \#5.
+
+Files added in our repository:
+\begin{itemize}
+  \item \texttt{bugs/channel/k8s\_5316\_test.go}, \texttt{bugs/channel/docker\_24007\_test.go},
+        \texttt{bugs/channel/check\_result.sh}, \texttt{bugs/channel/README.md}
+  \item \texttt{bugs/shared\_memory/waitgroup\_deadlock/} (buggy and \texttt{fixed/} versions)
+  \item \texttt{bugs/shared\_memory/docker\_race/} (buggy and \texttt{fixed/} versions)
+  \item \texttt{bugs/shared\_memory/check\_result.sh},
+        \texttt{scripts/run\_all.sh}, \texttt{scripts/summarize\_runs.py},
+        \texttt{Dockerfile}
+\end{itemize}
 
 \subsection{Environment}
+All experiments run inside one Docker image built from the repository's
+\texttt{Dockerfile}: Ubuntu 18.04 with the official Go 1.10.8 binary release for
+linux/amd64. Go 1.10.8 predates Go modules, so the code is built in GOPATH mode.
+
+\Cref{tab:env-early} records an earlier snapshot from
+\texttt{bugs/shared\_memory/environment.txt} (4 Nov 2026), taken on an Apple M2
+Mac under amd64 emulation. The official Week~2 full-suite run, which fills
+\Cref{tab:test-record}, was executed on a different host, recorded in
+\texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/environment.txt}
+and summarized in \Cref{tab:env-official}.
+
 \begin{table}[h]
   \centering
-  \caption{Reproduction environment.}
-  \label{tab:env}
+  \caption{Earlier environment snapshot (4 Nov 2026, Apple M2 host).}
+  \label{tab:env-early}
   \begin{tabular}{ll}
     \toprule
     Item & Value \\
     \midrule
-    CPU / RAM         & \todo{} \\
-    Host OS / kernel  & \todo{} \\
-    Container image   & Ubuntu 18.04 (Docker) \\
-    Go toolchain      & Go 1.10.8 (linux/amd64) \\
-    Docker version    & \todo{} \\
+    Host machine        & Apple M2 Mac, Docker Desktop \todo{RAM, macOS and Docker versions} \\
+    Container OS        & Ubuntu 18.04.6 LTS (Bionic Beaver) \\
+    Kernel (container)  & Linux 7.0.14-linuxkit, x86\_64 \\
+    CPU emulation       & linux/amd64 image on an ARM64 host \\
+    Go toolchain        & go1.10.8 linux/amd64 \\
+    C compiler          & GCC 7.5.0 (\texttt{CGO\_ENABLED=1}, required by \texttt{-race}) \\
+    Available processors & 8 (\texttt{GOMAXPROCS} unset, so it defaults to 8) \\
     \bottomrule
   \end{tabular}
 \end{table}
 
+\begin{table}[h]
+  \centering
+  \caption{Official Week~2 full-suite environment (14 Nov 2026).}
+  \label{tab:env-official}
+  \begin{tabular}{ll}
+    \toprule
+    Item & Value \\
+    \midrule
+    Host / kernel       & WSL2, Linux 6.18.58.1-microsoft-standard-WSL2, x86\_64 \\
+    Container OS        & Ubuntu 18.04.6 LTS (Bionic Beaver) \\
+    Go toolchain        & go1.10.8 linux/amd64 \\
+    C compiler          & GCC 7.5.0 (\texttt{CGO\_ENABLED=1}, \texttt{CC=gcc}) \\
+    Available processors & 16 (\texttt{GOMAXPROCS} unset) \\
+    Repeats / race opts & \texttt{REPEATS=3}, \texttt{GORACE=exitcode=66} \\
+    Base commit         & \texttt{312d6da} (integration scripts uncommitted at run time) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Settings that can affect the results are the number of processors, the test
+timeout (\texttt{-timeout}), the outer \texttt{timeout} wrapper, \texttt{-count=1}
+(disables test caching) and \texttt{-race}.
+\todo{If other members run on different hosts, add RAM and Docker versions for each machine.}
+
 \subsection{Workloads}
-\todo{The bug cases we run (from \texttt{bugs/channel/} and \texttt{bugs/shared\_memory/}),
-how they are obtained, and how each run is triggered and judged (e.g., detector output, timeout).}
+The workloads are the four minimal bug programs in \Cref{tab:cases}. Each
+shared-memory case has a matching fixed version. All cases are run from the
+repository root inside the container:
+
+\begin{lstlisting}[language=bash]
+docker build --platform linux/amd64 -t cs340-go-bugs .
+docker run --rm --platform linux/amd64 -v "$PWD:/workspace" \
+    -w /workspace -e REPEATS=3 cs340-go-bugs bash scripts/run_all.sh
+\end{lstlisting}
+
+\texttt{scripts/run\_all.sh} runs six cases in each of three iterations: the two
+channel tests (without \texttt{-race}, because they are message-passing bugs and
+an unrecovered panic would stop a combined process) and the four shared-memory
+tests (with \texttt{-race}). It writes a fresh evidence directory under
+\texttt{logs/full\_suite/}. The official Week~2 directory has been copied into
+\texttt{report/results/week2\_full\_suite/} for traceability; other generated
+logs stay local and are not committed.
+
+A run is judged by the suite checker:
+\begin{itemize}
+  \item \texttt{bugs/channel/check\_result.sh}:
+        \texttt{EXPECTED\_PANIC} for Docker \#24007 (nonzero exit and
+        \texttt{panic: close of closed channel});
+        \texttt{EXPECTED\_BLOCKING} for Kubernetes \#5316 (nonzero exit,
+        \texttt{test timed out after 5s} and \texttt{[chan send]}).
+  \item \texttt{bugs/shared\_memory/check\_result.sh}:
+        \texttt{EXPECTED\_BLOCKING} for Docker \#25384 (test timeout with
+        \texttt{sync.(*WaitGroup).Wait} in the stack);
+        \texttt{EXPECTED\_RACE} for Docker \#27037 (\texttt{WARNING: DATA RACE});
+        \texttt{FIXED\_PASS} for both fixed versions (\texttt{PASS} and no race
+        report).
+\end{itemize}
+Results are recorded in the test record table (\Cref{tab:test-record}).
 
 \subsection{Deviations}
 \begin{table}[h]
   \centering
   \caption{Deviations from the paper's setup.}
   \label{tab:deviations}
-  \begin{tabular}{p{3cm}p{3.5cm}p{3.5cm}p{4cm}}
+  \small
+  \begin{tabular}{p{2.8cm}p{3.6cm}p{3.6cm}p{4.2cm}}
     \toprule
     Item & Original setting & Setting used & Reason \\
     \midrule
-    \todo{} & & & \\
+    Code base & Bugs inside full applications (Docker, Kubernetes) & Minimal stand-alone kernels of each bug & The full projects at the buggy commits are hard to build with one toolchain; the kernels keep the triggering pattern. \\
+    Docker \#27037 loop range & Loop values 17 to 21 & Loop values 17 to 20 (4 goroutines) & Smaller example; the shared-loop-variable mechanism is unchanged. \\
+    Docker \#24007 interleaving & Depends on natural scheduling & Extra channels force both goroutines into \texttt{default} before closing; the second close is left as an unrecovered panic & Makes the rare interleaving deterministic and matches the original panic symptom. \\
+    Kubernetes \#5316 observation & Leaked goroutine stays blocked in the application & The test waits on a \texttt{done} channel until the 5\,s test timeout exposes a \texttt{[chan send]} stack; there is no cleanup receive & A cleanup receive would hide the blocked send that Week~2 requires us to show. \\
+    Official-run host & Native x86-64 (assumed) & Official numbers come from a WSL2 x86\_64 host with 16 processors; an earlier snapshot used an amd64 container emulated on Apple M2 with 8 processors & Hardware available to the team; processor count and emulation can change timing. \\
+    Go version & \todo{Go version(s) used by the paper} & Go 1.10.8 & \todo{reason} \\
     \bottomrule
   \end{tabular}
 \end{table}

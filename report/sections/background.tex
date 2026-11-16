@@ -1,0 +1,78 @@
+\section{Background}
+\label{sec:background}
+
+\subsection{Concurrency in Go}
+Go provides lightweight threads called \emph{goroutines}, started with the
+\texttt{go} keyword and scheduled by the Go runtime onto operating-system threads.
+Goroutines can communicate in two ways:
+
+\begin{itemize}
+  \item \textbf{Message passing.} A \emph{channel} carries typed values between
+        goroutines. A send on an unbuffered channel blocks until another goroutine
+        receives from it; a buffered channel blocks only when its buffer is full.
+        The \texttt{select} statement waits on several channel operations at once,
+        and a \texttt{default} branch makes it non-blocking. Closing a channel twice
+        causes a run-time panic.
+  \item \textbf{Shared memory.} The \texttt{sync} package offers \texttt{Mutex},
+        \texttt{RWMutex}, \texttt{Cond}, \texttt{Once} and \texttt{WaitGroup}.
+        A \texttt{WaitGroup} counts outstanding tasks: \texttt{Add} increases the
+        counter, \texttt{Done} decreases it, and \texttt{Wait} blocks until it reaches
+        zero. Anonymous functions (closures) started as goroutines can also share
+        variables of the enclosing function, including loop variables.
+\end{itemize}
+
+\subsection{Bug Taxonomy Used by the Paper}
+Tu et al.~\cite{tu2019go} classify concurrency bugs along two dimensions.
+By \emph{behavior}, a \textbf{blocking} bug leaves one or more goroutines stuck
+forever (for example, a send that no goroutine will ever receive), while a
+\textbf{non-blocking} bug lets all goroutines continue but produces a wrong result,
+a data race or a panic. By \emph{cause}, a bug stems from misuse of
+\textbf{shared memory} or of \textbf{message passing}.
+\todo{Verify the exact counts against the paper before quoting them.}
+
+\subsection{Go's Built-in Bug Detectors}
+\begin{itemize}
+  \item \textbf{Runtime deadlock detector.} When every goroutine is blocked, the
+        runtime aborts with \texttt{fatal error: all goroutines are asleep -
+        deadlock!}. It does not fire if any goroutine can still run, so a leak of a
+        few goroutines in a live program goes unreported.
+  \item \textbf{Data race detector.} Building with \texttt{-race} instruments memory
+        accesses (based on ThreadSanitizer) and prints \texttt{WARNING: DATA RACE}
+        for unsynchronized conflicting accesses that actually happen during the run.
+        It cannot report races on paths that were not executed.
+\end{itemize}
+
+\subsection{Bugs Reproduced in This Work}
+\Cref{tab:cases} lists the four bugs we reproduce, one per figure of the paper.
+
+\begin{table}[h]
+  \centering
+  \caption{Bug cases reproduced in this work.}
+  \label{tab:cases}
+  \begin{tabular}{lllll}
+    \toprule
+    Paper figure & Original bug & Behavior & Cause & Our test \\
+    \midrule
+    Figure 1  & Kubernetes \#5316 & Blocking     & Message passing & \texttt{k8s\_5316\_test.go} \\
+    Figure 10 & Docker \#24007    & Non-blocking & Message passing & \texttt{docker\_24007\_test.go} \\
+    Figure 5  & Docker \#25384    & Blocking     & Shared memory   & \texttt{docker\_25384\_test.go} \\
+    Figure 8  & Docker \#27037    & Non-blocking & Shared memory   & \texttt{docker\_27037\_test.go} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{itemize}
+  \item \textbf{Kubernetes \#5316 (Figure 1).} A child goroutine sends its result on
+        an unbuffered channel, but the parent has already left through a timeout
+        branch of \texttt{select}. The send blocks forever and the child goroutine
+        leaks.
+  \item \textbf{Docker \#24007 (Figure 10).} Two goroutines both take the
+        \texttt{default} branch of a \texttt{select} before either closes the channel,
+        so the channel is closed twice and the program panics.
+  \item \textbf{Docker \#25384 (Figure 5).} \texttt{WaitGroup.Wait()} is called inside
+        the loop that starts the tasks, so the parent waits for a task that has not
+        been started yet.
+  \item \textbf{Docker \#27037 (Figure 8).} Goroutines started in a loop read the loop
+        variable \texttt{i} through a closure while the parent keeps updating it, a
+        data race that can make several goroutines see the same value.
+\end{itemize}

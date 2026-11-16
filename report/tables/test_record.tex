@@ -1,0 +1,34 @@
+% Test record table. One row per (case, version, run), filled from the official Week 2 logs.
+% Keep the same rows as report/data/test_record.csv.
+\begin{table}[h]
+  \centering
+  \caption{Official Week~2 test record (Go 1.10.8, Docker, 14 Nov 2026).
+    Raw logs are in \texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}.}
+  \label{tab:test-record}
+  \small
+  \setlength{\tabcolsep}{3pt}
+  \begin{tabular}{llclllp{3.4cm}}
+    \toprule
+    Case & Version & Run & Exit & Checker result & Duration (s) & Observed symptom \\
+    \midrule
+    k8s\_5316     & buggy & 1 & 1 & EXPECTED\_BLOCKING & 5.005 & timed out; \texttt{[chan send]} \\
+    k8s\_5316     & buggy & 2 & 1 & EXPECTED\_BLOCKING & 5.005 & timed out; \texttt{[chan send]} \\
+    k8s\_5316     & buggy & 3 & 1 & EXPECTED\_BLOCKING & 5.005 & timed out; \texttt{[chan send]} \\
+    docker\_24007 & buggy & 1 & 1 & EXPECTED\_PANIC    & 0.005 & \texttt{close of closed channel} \\
+    docker\_24007 & buggy & 2 & 1 & EXPECTED\_PANIC    & 0.005 & \texttt{close of closed channel} \\
+    docker\_24007 & buggy & 3 & 1 & EXPECTED\_PANIC    & 0.005 & \texttt{close of closed channel} \\
+    docker\_25384 & buggy & 1 & 1 & EXPECTED\_BLOCKING & 5.011 & timed out in \texttt{WaitGroup.Wait} \\
+    docker\_25384 & buggy & 2 & 1 & EXPECTED\_BLOCKING & 5.011 & timed out in \texttt{WaitGroup.Wait} \\
+    docker\_25384 & buggy & 3 & 1 & EXPECTED\_BLOCKING & 5.010 & timed out in \texttt{WaitGroup.Wait} \\
+    docker\_25384 & fixed & 1 & 0 & FIXED\_PASS        & 1.011 & both tasks completed \\
+    docker\_25384 & fixed & 2 & 0 & FIXED\_PASS        & 1.009 & both tasks completed \\
+    docker\_25384 & fixed & 3 & 0 & FIXED\_PASS        & 1.009 & both tasks completed \\
+    docker\_27037 & buggy & 1 & 1 & EXPECTED\_RACE     & 0.007 & \texttt{DATA RACE}; duplicate versions \\
+    docker\_27037 & buggy & 2 & 1 & EXPECTED\_RACE     & 0.007 & \texttt{DATA RACE}; duplicate versions \\
+    docker\_27037 & buggy & 3 & 1 & EXPECTED\_RACE     & 0.007 & \texttt{DATA RACE}; duplicate versions \\
+    docker\_27037 & fixed & 1 & 0 & FIXED\_PASS        & 1.011 & \texttt{v1.17}--\texttt{v1.20} once each \\
+    docker\_27037 & fixed & 2 & 0 & FIXED\_PASS        & 1.009 & \texttt{v1.17}--\texttt{v1.20} once each \\
+    docker\_27037 & fixed & 3 & 0 & FIXED\_PASS        & 1.010 & \texttt{v1.17}--\texttt{v1.20} once each \\
+    \bottomrule
+  \end{tabular}
+\end{table}
