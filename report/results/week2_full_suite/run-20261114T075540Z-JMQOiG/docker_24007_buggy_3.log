@@ -1,0 +1,13 @@
+COMMAND=timeout 120s go test -v -count=1 -timeout=10s -run \^TestDocker24007\$ ./bugs/channel 
+bugs/channel/check_result.sh: line 1: ﻿#!/usr/bin/env: No such file or directory
+=== RUN   TestDocker24007
+panic: close of closed channel
+
+goroutine 21 [running]:
+_/workspace/bugs/channel.TestDocker24007.func1()
+	/workspace/bugs/channel/docker_24007_test.go:22 +0xbf
+created by _/workspace/bugs/channel.TestDocker24007
+	/workspace/bugs/channel/docker_24007_test.go:27 +0x124
+FAIL	_/workspace/bugs/channel	0.005s
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_PANIC
