@@ -52,14 +52,56 @@ race detector fired every time, and the printed versions contained duplicates
   \end{tabular}
 \end{table}
 
+\subsection{Shared-Memory Reproduction Results}
+\label{sec:shared-memory-results}
+
+We ran both the buggy and fixed variants of Docker \#27037 and
+Docker \#25384 three times with \texttt{go test -race} under
+Go 1.10.8 on Linux/amd64.
+
+\paragraph{Docker \#27037 (Figure 8 of Tu et al.~\cite{tu2019go}).}
+The race detector reported a data race in all three buggy runs.
+In the first run, the report showed a worker goroutine reading the
+loop variable \texttt{i} at line~19 of \texttt{docker\_race.go}
+and the parent goroutine writing to the same address at line~14.
+The fixed variant passed all three runs with no race warnings.
+
+\paragraph{Docker \#25384 (Figure 5 of Tu et al.~\cite{tu2019go}).}
+All three buggy runs timed out after five seconds. In the first run,
+task~0 finished, but the stack trace showed the test still blocked
+in \texttt{sync.(*WaitGroup).Wait}. Calling \texttt{Wait()} inside
+the loop prevented the second task from starting. After moving
+\texttt{Wait()} outside the loop, the fixed variant passed all
+three runs. Neither variant emitted a race warning.
+
+Figure~\ref{fig:reproduction-outcomes} summarizes the expected outcomes,
+and the right panel of Figure~\ref{fig:race-detection} shows the number
+of runs with race warnings for each variant.
+
 \subsection{Visualization}
-\todo{Add figures under \texttt{report/figures/} and reference them, e.g.\ \Cref{fig:main}.}
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=0.8\linewidth]{main_result.pdf}
-%   \caption{...}
-%   \label{fig:main}
-% \end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/reproduction_outcomes.pdf}
+  \caption{Reproduction outcomes under Go 1.10.8. Each bar shows the
+    fraction of three runs that matched the expected outcome for the
+    corresponding case and version. The labels identify the outcome
+    checked in each group.}
+  \label{fig:reproduction-outcomes}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/race_detection.pdf}
+  \caption{Race detection in the paper and in our reproduction. The left
+    panel shows the counts from Table~12 of Tu et al.~\cite{tu2019go},
+    where a non-blocking bug counted as detected if the detector reported
+    it at least once within 100 runs. The right panel counts runs with
+    at least one race warning for each case and version. The pale bars
+    show the totals tested, and the colored portions show the counts
+    detected.}
+  \label{fig:race-detection}
+\end{figure}
 
 \subsection{Test Record}
 \input{tables/test_record}
@@ -73,3 +115,19 @@ per case and iteration. Every number in \Cref{tab:week2-outcomes} and
 \Cref{tab:test-record} comes from that directory. The run recorded base commit
 \texttt{312d6da}, together with the uncommitted integration scripts that were
 merged later as pull request \#5 (\texttt{68df8a3}).
+
+\paragraph{Week~3 evidence.}
+The figures and shared-memory results use the three-round run
+\texttt{run-20261116T150500Z-ixxI8j}, archived under
+\texttt{report/results/week3\_full\_suite/}.
+Figure~\ref{fig:reproduction-outcomes} uses \texttt{summary.tsv},
+which records the checker outcome and source log for every run.
+\texttt{statistics.csv} records the mean and sample standard deviation
+of the expected-outcome indicator for each case and version.
+
+For the right panel of Figure~\ref{fig:race-detection},
+\texttt{race\_warning\_counts.tsv} records the warning count for each
+shared-memory run. Each positive count contributes one detected run.
+The left panel uses Table~12 of Tu et al.~\cite{tu2019go}.
+The evidence directory also includes \texttt{environment.txt} and
+\texttt{input\_sha256.txt}. Full per-run logs are retained locally.

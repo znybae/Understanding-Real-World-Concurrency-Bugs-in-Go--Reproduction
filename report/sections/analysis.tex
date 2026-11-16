@@ -12,3 +12,31 @@
 
 \subsection{Limitations}
 \todo{What this reproduction cannot show.}
+
+\subsection{Race Detection on the Shared-Memory Cases}
+
+Tu et al.~\cite{tu2019go} reported in Table~12 that Go's race
+detector detected 10 of 20 non-blocking bugs, including 3 of 4
+bugs involving anonymous functions. The authors counted a bug as
+detected if it produced at least one report within 100 runs.
+
+In our reproduction, the buggy Docker \#27037 variant produced
+a race warning in all three runs. Each run counted once even
+when the detector issued multiple warnings. This result shows
+that the detector can identify the conflicting accesses to the
+loop variable in our reproduction of the anonymous-function bug.
+Figure~\ref{fig:race-detection} uses two units of analysis: the
+paper counts distinct bugs, while our experiment counts repeated
+runs of each variant. Our three runs establish repeatability
+for this case under the tested setup. Estimating detection
+across the paper's benchmark would require testing its broader
+set of bugs under the same run protocol.
+
+The buggy Docker \#25384 variant timed out in all three runs
+without emitting a race warning. Its failure arose because
+\texttt{Wait()} blocked before the loop could start the
+remaining task. The test timeout exposed this blocking failure.
+Table~12 covers non-blocking bugs, so this case is outside the
+scope of its race-detection evaluation. Both fixed variants
+passed all three tests without race warnings under the tested
+workloads.

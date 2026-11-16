@@ -1,0 +1,13 @@
+source_log	race_warning_count
+docker_27037_buggy_1.log	4
+docker_27037_buggy_2.log	4
+docker_27037_buggy_3.log	4
+docker_27037_fixed_1.log	0
+docker_27037_fixed_2.log	0
+docker_27037_fixed_3.log	0
+docker_25384_buggy_1.log	0
+docker_25384_buggy_2.log	0
+docker_25384_buggy_3.log	0
+docker_25384_fixed_1.log	0
+docker_25384_fixed_2.log	0
+docker_25384_fixed_3.log	0
