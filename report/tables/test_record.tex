@@ -1,0 +1,32 @@
+% Test record table. Fill one row per (case, version, run) from the raw logs.
+% Keep the same rows as report/data/test_record.csv.
+\begin{table}[h]
+  \centering
+  \caption{Test record (Go 1.10.8, Docker container).}
+  \label{tab:test-record}
+  \small
+  \begin{tabular}{llcllll}
+    \toprule
+    Case & Version & Run & Exit code & Checker result & Observed symptom & Log file \\
+    \midrule
+    k8s\_5316     & buggy & 1 & & & & \\
+    k8s\_5316     & buggy & 2 & & & & \\
+    k8s\_5316     & buggy & 3 & & & & \\
+    docker\_24007 & buggy & 1 & & & & \\
+    docker\_24007 & buggy & 2 & & & & \\
+    docker\_24007 & buggy & 3 & & & & \\
+    docker\_25384 & buggy & 1 & & & & \\
+    docker\_25384 & buggy & 2 & & & & \\
+    docker\_25384 & buggy & 3 & & & & \\
+    docker\_25384 & fixed & 1 & & & & \\
+    docker\_25384 & fixed & 2 & & & & \\
+    docker\_25384 & fixed & 3 & & & & \\
+    docker\_27037 & buggy & 1 & & & & \\
+    docker\_27037 & buggy & 2 & & & & \\
+    docker\_27037 & buggy & 3 & & & & \\
+    docker\_27037 & fixed & 1 & & & & \\
+    docker\_27037 & fixed & 2 & & & & \\
+    docker\_27037 & fixed & 3 & & & & \\
+    \bottomrule
+  \end{tabular}
+\end{table}

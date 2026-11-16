@@ -2,15 +2,21 @@
 \label{sec:extension}
 
 \subsection{Question and Motivation}
-Do the same bugs still behave the same way, and are they still (un)detected,
-under a modern Go toolchain? Go has changed since the paper, notably per-iteration
-loop variables (Go 1.22) and asynchronous goroutine preemption (Go 1.14).
-See \texttt{extension/README.md} for the full plan.
+Do the reproduced bugs behave the same way on a modern Go toolchain? Go 1.22 changed
+the scope of \texttt{for}-loop variables from one variable per loop to one per
+iteration, which removes the root cause of the closure race in Figure 8 (Docker
+\#27037). We test whether this language change, and not a newer toolchain in general,
+eliminates the race, while the other three bugs act as controls.
 
 \subsection{Design}
-One factor changed at a time: the Go toolchain version (1.10.8 vs.\ a modern 1.23+
-release). Same hardware, same bug programs, same trigger and judging procedure.
-\todo{Exact versions and run counts.}
+We compare three configurations on the same Ubuntu 18.04 base image and the same
+machine, with unchanged bug source files:
+(A) Go 1.10.8 in GOPATH mode, the baseline;
+(B) a modern Go toolchain with \texttt{go 1.21} in \texttt{go.mod} (old loop rule);
+(C) the same toolchain with \texttt{go 1.22} (new loop rule).
+A vs.\ B isolates the toolchain and runtime; B vs.\ C isolates the language rule.
+Each case runs at least 10 times per configuration.
+\todo{Exact modern Go version and number of runs.}
 
 \subsection{Result}
-\todo{Outcome, interpreted with respect to claims C2 and C3.}
+\todo{Detection rate per configuration and interpretation with respect to claim C3.}
