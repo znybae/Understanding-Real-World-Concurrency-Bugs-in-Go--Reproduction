@@ -1,0 +1,65 @@
+% Summary of the official Week 3 extension run (N=10 per cell).
+% Per-run rows are in report/data/extension_record.csv and
+% extension/results/run-20261118T115819Z-IAbvyc/.
+\begin{table}[h]
+  \centering
+  \caption{Official Week~3 modern-Go comparison on this host
+    (18 Nov 2026, UTC+8, Asia/Shanghai).
+    Each cell is 10 independent runs.
+    Race is the number of runs whose output contained \texttt{WARNING: DATA RACE}.
+    Unique versions applies only to Figure~8 and means the printed set was
+    exactly \texttt{v1.17}--\texttt{v1.20} once each.
+    Duration is the wall-clock mean $\pm$ sample standard deviation in seconds,
+    including compilation.
+    Official-checker matches use the Week~2 expected verdicts; under
+    configuration~C the buggy Figure~8 case is not expected to remain
+    \texttt{EXPECTED\_RACE}.}
+  \label{tab:extension-outcomes}
+  \small
+  \setlength{\tabcolsep}{2.5pt}
+  \begin{tabular}{lllcrrc}
+    \toprule
+    Case & Ver. & Cfg & Toolchain / language & Official & Race & Duration (s) \\
+    \midrule
+    k8s\_5316     & buggy & A & go1.10.8 / GOPATH     & BLOCKING 10/10 & 0/10 & $5.157 \pm 0.006$ \\
+    k8s\_5316     & buggy & B & go1.23.12 / go 1.21  & BLOCKING 10/10 & 0/10 & $5.148 \pm 0.015$ \\
+    k8s\_5316     & buggy & C & go1.23.12 / go 1.22  & BLOCKING 10/10 & 0/10 & $5.149 \pm 0.011$ \\
+    docker\_24007 & buggy & A & go1.10.8 / GOPATH     & PANIC 10/10    & 0/10 & $0.162 \pm 0.014$ \\
+    docker\_24007 & buggy & B & go1.23.12 / go 1.21  & PANIC 10/10    & 0/10 & $0.441 \pm 0.935$ \\
+    docker\_24007 & buggy & C & go1.23.12 / go 1.22  & PANIC 10/10    & 0/10 & $0.427 \pm 0.878$ \\
+    docker\_25384 & buggy & A & go1.10.8 / GOPATH     & BLOCKING 10/10 & 0/10 & $5.200 \pm 0.019$ \\
+    docker\_25384 & buggy & B & go1.23.12 / go 1.21  & BLOCKING 10/10 & 0/10 & $5.723 \pm 1.612$ \\
+    docker\_25384 & buggy & C & go1.23.12 / go 1.22  & BLOCKING 10/10 & 0/10 & $5.689 \pm 1.505$ \\
+    docker\_25384 & fixed & A & go1.10.8 / GOPATH     & PASS 10/10     & 0/10 & $1.192 \pm 0.013$ \\
+    docker\_25384 & fixed & B & go1.23.12 / go 1.21  & PASS 10/10     & 0/10 & $1.203 \pm 0.020$ \\
+    docker\_25384 & fixed & C & go1.23.12 / go 1.22  & PASS 10/10     & 0/10 & $1.197 \pm 0.017$ \\
+    docker\_27037 & buggy & A & go1.10.8 / GOPATH     & RACE 10/10     & 10/10 & $0.187 \pm 0.011$ \\
+    docker\_27037 & buggy & B & go1.23.12 / go 1.21  & RACE 10/10     & 10/10 & $0.205 \pm 0.025$ \\
+    docker\_27037 & buggy & C & go1.23.12 / go 1.22  & 0/10 (PASS)    & 0/10 & $1.200 \pm 0.019$ \\
+    docker\_27037 & fixed & A & go1.10.8 / GOPATH     & PASS 10/10     & 0/10 & $1.197 \pm 0.019$ \\
+    docker\_27037 & fixed & B & go1.23.12 / go 1.21  & PASS 10/10     & 0/10 & $1.206 \pm 0.023$ \\
+    docker\_27037 & fixed & C & go1.23.12 / go 1.22  & PASS 10/10     & 0/10 & $1.203 \pm 0.020$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{Figure~8 printed version sets in the official Week~3 run
+    (10 runs per configuration). Unique means exactly
+    \texttt{v1.17}--\texttt{v1.20} once each.}
+  \label{tab:extension-versions}
+  \small
+  \begin{tabular}{llcc}
+    \toprule
+    Version & Config & Unique version set & Race warnings \\
+    \midrule
+    buggy & A & 0/10 & 10/10 \\
+    buggy & B & 0/10 & 10/10 \\
+    buggy & C & 10/10 & 0/10 \\
+    fixed & A & 10/10 & 0/10 \\
+    fixed & B & 10/10 & 0/10 \\
+    fixed & C & 10/10 & 0/10 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

@@ -1,0 +1,21 @@
+CONFIG=C
+LANGUAGE_VERSION=1.22
+GO_VERSION=go version go1.23.12 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=
+module cs340/extension
+
+go 1.22
+COMMAND=timeout 120s go test -race -v -count=1 -timeout=5s -run \^TestWaitGroupFixed\$ ./waitgroup_deadlock/fixed 
+=== RUN   TestWaitGroupFixed
+Starting task 0
+Starting task 1
+Waiting outside the loop
+Task 1 finished
+Task 0 finished
+All tasks completed
+--- PASS: TestWaitGroupFixed (0.00s)
+PASS
+ok  	cs340/extension/waitgroup_deadlock/fixed	1.009s
+COMMAND_EXIT_CODE=0
+RESULT=FIXED_PASS

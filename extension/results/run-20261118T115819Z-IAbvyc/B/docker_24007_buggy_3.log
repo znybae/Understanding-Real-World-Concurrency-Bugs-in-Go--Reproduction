@@ -1,0 +1,22 @@
+CONFIG=B
+LANGUAGE_VERSION=1.21
+GO_VERSION=go version go1.23.12 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=
+module cs340/extension
+
+go 1.21
+COMMAND=timeout 120s go test -v -count=1 -timeout=10s -run \^TestDocker24007\$ ./channel 
+=== RUN   TestDocker24007
+    docker_24007_test.go:33: Both workers entered default; releasing concurrent close attempts
+panic: close of closed channel
+
+goroutine 19 [running]:
+cs340/extension/channel.TestDocker24007.func1()
+	/workspace/extension/workspace/channel/docker_24007_test.go:22 +0x7b
+created by cs340/extension/channel.TestDocker24007 in goroutine 18
+	/workspace/extension/workspace/channel/docker_24007_test.go:27 +0xe5
+FAIL	cs340/extension/channel	0.004s
+FAIL
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_PANIC

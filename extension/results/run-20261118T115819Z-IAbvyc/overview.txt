@@ -1,0 +1,27 @@
+Extension run overview
+/workspace/os-week3-repo/extension/results/run-20261118T115819Z-IAbvyc
+
+== Config A ==
+  k8s_5316_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.157±0.006
+  docker_24007_buggy: n=10 results={'EXPECTED_PANIC': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=0.162±0.014
+  docker_25384_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.200±0.019
+  docker_25384_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=1.192±0.013
+  docker_27037_buggy: n=10 results={'EXPECTED_RACE': 10} race=10/10 deadlock=0/10 unique_versions=0/10 duration_s=0.187±0.011
+  docker_27037_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=10/10 duration_s=1.197±0.019
+
+== Config B ==
+  k8s_5316_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.148±0.015
+  docker_24007_buggy: n=10 results={'EXPECTED_PANIC': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=0.441±0.935
+  docker_25384_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.723±1.612
+  docker_25384_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=1.203±0.020
+  docker_27037_buggy: n=10 results={'EXPECTED_RACE': 10} race=10/10 deadlock=0/10 unique_versions=0/10 duration_s=0.205±0.025
+  docker_27037_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=10/10 duration_s=1.206±0.023
+
+== Config C ==
+  k8s_5316_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.149±0.011
+  docker_24007_buggy: n=10 results={'EXPECTED_PANIC': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=0.427±0.878
+  docker_25384_buggy: n=10 results={'EXPECTED_BLOCKING': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=5.689±1.505
+  docker_25384_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=0/10 duration_s=1.197±0.017
+  docker_27037_buggy: n=10 results={'UNEXPECTED_OR_NOT_REPRODUCED': 10} race=0/10 deadlock=0/10 unique_versions=10/10 duration_s=1.200±0.019
+  docker_27037_fixed: n=10 results={'FIXED_PASS': 10} race=0/10 deadlock=0/10 unique_versions=10/10 duration_s=1.203±0.020
+
