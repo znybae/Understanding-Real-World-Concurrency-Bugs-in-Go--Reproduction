@@ -1,0 +1,54 @@
+CONFIG=B
+LANGUAGE_VERSION=1.21
+GO_VERSION=go version go1.23.12 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=
+module cs340/extension
+
+go 1.21
+COMMAND=timeout 120s go test -race -v -count=1 -timeout=5s -run \^TestWaitGroupDeadlock\$ ./waitgroup_deadlock 
+=== RUN   TestWaitGroupDeadlock
+Starting task 0
+Waiting inside the loop
+Task 0 finished
+panic: test timed out after 5s
+	running tests:
+		TestWaitGroupDeadlock (5s)
+
+goroutine 8 [running]:
+testing.(*M).startAlarm.func1()
+	/usr/local/go/src/testing/testing.go:2373 +0x265
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:215 +0x45
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc0000944e0, {0x60c850, 0x15}, 0x6154c8)
+	/usr/local/go/src/testing/testing.go:1751 +0x851
+testing.runTests.func1(0xc0000944e0)
+	/usr/local/go/src/testing/testing.go:2168 +0x86
+testing.tRunner(0xc0000944e0, 0xc0000b9ae0)
+	/usr/local/go/src/testing/testing.go:1690 +0x227
+testing.runTests(0xc000012180, {0x749520, 0x1, 0x1}, {0x7f9e30bac108?, 0x40?, 0x7530e0?})
+	/usr/local/go/src/testing/testing.go:2166 +0x8bf
+testing.(*M).Run(0xc0000980a0)
+	/usr/local/go/src/testing/testing.go:2034 +0xf18
+main.main()
+	_testmain.go:45 +0x165
+
+goroutine 6 [semacquire]:
+sync.runtime_Semacquire(0xc0000145f8?)
+	/usr/local/go/src/runtime/sema.go:71 +0x25
+sync.(*WaitGroup).Wait(0xc0000145f0)
+	/usr/local/go/src/sync/waitgroup.go:118 +0xa5
+cs340/extension/waitgroup_deadlock.main()
+	/workspace/extension/workspace/waitgroup_deadlock/waitgroup_deadlock.go:25 +0xfd
+cs340/extension/waitgroup_deadlock.TestWaitGroupDeadlock(0xc000094680?)
+	/workspace/extension/workspace/waitgroup_deadlock/docker_25384_test.go:8 +0x1d
+testing.tRunner(0xc000094680, 0x6154c8)
+	/usr/local/go/src/testing/testing.go:1690 +0x227
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:1743 +0x826
+FAIL	cs340/extension/waitgroup_deadlock	5.016s
+FAIL
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_BLOCKING

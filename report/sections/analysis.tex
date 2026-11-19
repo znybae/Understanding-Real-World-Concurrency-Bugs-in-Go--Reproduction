@@ -40,3 +40,75 @@ Table~12 covers non-blocking bugs, so this case is outside the
 scope of its race-detection evaluation. Both fixed variants
 passed all three tests without race warnings under the tested
 workloads.
+
+\subsection{Deviation Attribution}
+\label{sec:deviation-attribution}
+
+This subsection records differences among hosts, detectors, and language
+versions. It does not replace the shared-memory race-detection discussion
+above, and it does not fill the paper-versus-ours cells for claims C1--C3,
+which remain unset because we have not re-extracted the paper's original
+aggregate numbers from a verified source in this revision.
+
+\paragraph{Hosts.}
+The official Week~2 full-suite evidence was collected on WSL2
+(Linux 6.18.58.1-microsoft-standard-WSL2, 16 available processors,
+\texttt{GOMAXPROCS} unset) inside the shared Ubuntu 18.04.6 + Go 1.10.8
+image, as summarised in \Cref{tab:env-official}. An earlier single-module
+snapshot used Apple M2 hardware with \texttt{linux/amd64} emulation
+(\Cref{tab:env-early}). The Week~3 extension, including a fresh
+configuration~A baseline, ran on a native x86\_64 Debian GNU/Linux 13.7
+host (kernel 6.12.113+, 8 CPUs, Docker 29.10.0) with the same Ubuntu
+18.04.6 containers and no architecture emulation. On this 8-CPU host,
+configuration~A reproduced the same official-checker symptoms as the WSL2
+Week~2 run in all 10 repeats of all six cases. Those WSL2 counts remain
+useful context, but they are not the paired A baseline for the A/B/C
+comparison.
+
+\paragraph{Timeout versus the deadlock detector.}
+The two blocking cases (Kubernetes \#5316 and buggy Docker \#25384) were
+exposed by \texttt{go test -timeout=5s}, not by Go's runtime deadlock
+detector. None of the official Week~2 logs, and none of the 180 official
+Week~3 extension logs, contains the string
+\texttt{all goroutines are asleep - deadlock}. A timeout and a runtime
+deadlock report are therefore not interchangeable in this reproduction.
+
+\paragraph{Checker script BOM in the Week~2 channel logs.}
+The official Week~2 channel logs still contain the line
+\texttt{check\_result.sh: line 1: \#!/usr/bin/env: No such file or directory},
+which is consistent with a UTF-8 byte-order mark at the start of
+\texttt{bugs/channel/check\_result.sh} at the time of that run. The checker
+verdicts in those logs were nonetheless correct. The current file on
+\texttt{main} has a normal shebang and no BOM. The Week~3 extension invoked
+that current script; none of its 180 official logs repeats the missing-interpreter
+message.
+
+\paragraph{Language version versus unverified toolchain claims.}
+For Figure~8, configurations A and B both produced a race warning in 10/10
+runs and never printed the unique \texttt{v1.17}--\texttt{v1.20} set, while
+configuration C produced no warning in 10/10 runs and printed that unique
+set every time. Because A and B already agree, and only the \texttt{go.mod}
+language version changes from B to C, we attribute the disappearance of the
+race to the Go 1.22 per-iteration rule. Under configuration~C the Week~2
+official checker still labels all 10 buggy Figure~8 runs
+\texttt{UNEXPECTED\_OR\_NOT\_REPRODUCED} because it continues to expect
+\texttt{EXPECTED\_RACE}; that label is the expected scientific outcome of the
+language-rule change, not evidence that ``all official checkers passed.''
+Configuration~B often printed a
+single repeated value (\texttt{v1.21} in nine of ten runs). That pattern is
+consistent with a shared loop variable, but we do not treat it, or any
+wall-clock difference, as evidence of a specific scheduler-mechanism change
+in the newer runtime. Absence of a race warning is also not, by itself,
+proof that a race cannot occur; the configuration-C conclusion relies on the
+controlled language-version switch together with the stable unique version
+set over 10 runs.
+
+\paragraph{Limitations.}
+The extension uses $N=10$ runs rather than the paper's 100-run detection
+protocol, four reduced kernels rather than the paper's full bug collection,
+and the default of eight logical CPUs. Wall-clock times include compilation.
+\texttt{go list -m} confirmed the module language versions, but a follow-up
+package-level \texttt{go list} inside the container printed VCS-stamping
+errors (exit status 128) that we record without treating them as
+language-version failures. Claim verdicts C1--C3 in \Cref{tab:paper-vs-ours}
+remain to do.

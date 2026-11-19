@@ -1,0 +1,41 @@
+===== Host =====
+Wed Nov 18 11:58:19 UTC 2026
+Wed Nov 18 19:58:19 CST 2026
+HOST_UNAME=Linux grok-bot-vm-432594286 6.12.113+ #1 SMP PREEMPT_DYNAMIC Mon Nov  9 20:07:52 UTC 2026 x86_64 GNU/Linux
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+DEBIAN_VERSION_FULL=13.7
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+HOST_NPROC=8
+DOCKER_VERSION=29.10.0
+BASE_IMAGE=cs340-go-bugs
+MODERN_IMAGE=cs340-go-bugs-modern
+REPEATS=10
+GORACE=exitcode=66
+GOMAXPROCS=unset
+COMMIT=132ca4c702b2872f2b855b1ad27f5058af2f8587
+WORKTREE_STATUS:
+?? extension/.gitignore
+?? extension/Dockerfile.modern
+?? extension/__pycache__/
+?? extension/results/
+?? extension/run_extension.sh
+?? extension/summarize_extension.py
+===== Baseline image =====
+Id=sha256:789cdfc2df686d788cbdd18fdb291b84aaad5c6a27d3c37485e4df139f28e43b Created=2026-11-18T19:53:25.050551649+08:00 Size=1193056357 Architecture=amd64 Os=linux
+===== Modern image =====
+Id=sha256:eac4a3805fc657fa1de2cf38454571074d6e8b9b718e3818f70e7f6be1c50f08 Created=2026-11-18T19:54:43.781690549+08:00 Size=1091786601 Architecture=amd64 Os=linux
+===== Dockerfiles =====
+8ec3121e22c2d69dac4fe7b74075e928d138722a43a15466e02e25aca8588a16  /workspace/os-week3-repo/Dockerfile
+6fae19078de43b859f8475378306525ddaed192200f5999720d799465ca05705  /workspace/os-week3-repo/extension/Dockerfile.modern
+c2e8cd4f4a6c3e9e452bd897d5b8b4c7b5d7ca60ed02ed3987500bc3457b87f4  /workspace/os-week3-repo/extension/run_extension.sh
+903354256139e663afefdb7700855ebe365ed79cb81673e857dd4dff814866cf  /workspace/os-week3-repo/extension/summarize_extension.py
+Pinned modern toolchain: go1.23.12 linux-amd64
+Official tarball: https://go.dev/dl/go1.23.12.linux-amd64.tar.gz
+Official SHA256: d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90

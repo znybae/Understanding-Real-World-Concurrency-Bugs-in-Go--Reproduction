@@ -8,15 +8,99 @@ iteration, which removes the root cause of the closure race in Figure 8 (Docker
 \#27037). We test whether this language change, and not a newer toolchain in general,
 eliminates the race, while the other three bugs act as controls.
 
+The buggy Figure~8 source uses a short declaration,
+\texttt{for i := 17; i <= 20; i++}, and starts \texttt{go func() \{ ... i ... \}()}
+without passing a copy of \texttt{i}. That is the pattern affected by the language
+rule. The patched control passes a copy with \texttt{go func(i int) \{ ... \}(i)},
+so its outcome should not depend on the language version.
+
 \subsection{Design}
-We compare three configurations on the same Ubuntu 18.04 base image and the same
-machine, with unchanged bug source files:
-(A) Go 1.10.8 in GOPATH mode, the baseline;
-(B) a modern Go toolchain with \texttt{go 1.21} in \texttt{go.mod} (old loop rule);
-(C) the same toolchain with \texttt{go 1.22} (new loop rule).
+We compare three configurations on the same Ubuntu 18.04.6 base image and the same
+machine, with unchanged bug source files copied into \texttt{extension/workspace/}
+(the originals under \texttt{bugs/} are not edited):
+(A) Go 1.10.8 in GOPATH mode, the baseline, re-run on this host;
+(B) the official Go 1.23.12 linux/amd64 toolchain with \texttt{go 1.21} in
+\texttt{go.mod} (old loop rule);
+(C) the same Go 1.23.12 binary with \texttt{go 1.22} in \texttt{go.mod} (new loop rule).
 A vs.\ B isolates the toolchain and runtime; B vs.\ C isolates the language rule.
-Each case runs at least 10 times per configuration.
-\todo{Exact modern Go version and number of runs.}
+The modern toolchain is the official tarball
+\texttt{go1.23.12.linux-amd64.tar.gz}
+(SHA256 \texttt{d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90}),
+run with \texttt{GOTOOLCHAIN=local}.
+\texttt{go list -m} recorded the module language version as 1.21 under configuration~B
+and 1.22 under configuration~C.
+Each case ran 10 independent times per configuration ($N=10$; 180 runs in total).
+Channel cases were run without \texttt{-race} and shared-memory cases with
+\texttt{-race}, matching the main suite. \texttt{CGO\_ENABLED=1}, \texttt{-count=1},
+the same per-test timeouts, and unset \texttt{GOMAXPROCS} were kept identical.
+
+The host was a native x86\_64 Debian GNU/Linux 13.7 machine (kernel 6.12.113+,
+8 CPUs, Docker 29.10.0) with no architecture emulation. Both images used GCC 7.5.0.
+The official evidence directory is
+\texttt{extension/results/run-20261118T115819Z-IAbvyc/};
+the per-run table is also stored as \texttt{report/data/extension\_record.csv}.
+Configuration~A on this host is the paired baseline. The official Week~2 WSL2
+run is discussed only as context in \Cref{sec:analysis}.
 
 \subsection{Result}
-\todo{Detection rate per configuration and interpretation with respect to claim C3.}
+\Cref{tab:extension-outcomes} summarises every case and configuration.
+The official Week~2 checkers were applied unchanged. Under configurations~A and~B
+every run matched the Week~2 expected verdict (indicator mean $1.00$, sample
+standard deviation $0.00$). Under configuration~C the three control bugs and both
+fixed variants still matched; the Figure~8 buggy case did not, because the test
+passed.
+
+\begin{itemize}
+  \item \textbf{Figure 8, Docker \#27037 (buggy).}
+        Configurations~A and~B produced \texttt{WARNING: DATA RACE} in all 10 runs
+        and never printed the unique set \texttt{v1.17}--\texttt{v1.20} once each.
+        Typical A outputs mixed values and duplicates, for example
+        \texttt{v1.20 v1.21 v1.21 v1.21}; two A runs printed four distinct values
+        that still included \texttt{v1.21} and omitted \texttt{v1.17}.
+        Configuration~B printed a single repeated value in every run
+        (\texttt{v1.21} in nine runs, \texttt{v1.20} in one).
+        Configuration~C produced no race warning in any run, exited 0, and printed
+        each of \texttt{v1.17}--\texttt{v1.20} once in all 10 runs.
+        The official checker therefore reports \texttt{UNEXPECTED\_OR\_NOT\_REPRODUCED}
+        for all 10 C runs: it still expects \texttt{EXPECTED\_RACE}.
+  \item \textbf{Figure 8, Docker \#27037 (fixed).}
+        All 30 runs (10 per configuration) passed, printed the unique version set,
+        and produced no race warning.
+  \item \textbf{Controls: Kubernetes \#5316, Docker \#24007, and Docker \#25384.}
+        All 10 runs of each control, in every configuration, kept the Week~2
+        symptom: a 5\,s test timeout with a blocked \texttt{[chan send]} for
+        Kubernetes \#5316; \texttt{panic: close of closed channel} for Docker \#24007;
+        a 5\,s test timeout in \texttt{WaitGroup.Wait} after starting only the first
+        task for buggy Docker \#25384; and \texttt{FIXED\_PASS} for the patched
+        WaitGroup case. None of these 180 official logs contains
+        \texttt{all goroutines are asleep - deadlock}.
+\end{itemize}
+
+Wall-clock time is reported in \Cref{tab:extension-outcomes} as the mean $\pm$
+sample standard deviation over 10 runs, including process startup and compilation.
+The larger standard deviations for Docker \#24007 and buggy Docker \#25384 under
+B and C come from a single cold compile at the start of each modern-toolchain
+module (first-run wall times of $3.100$\,s and $10.312$\,s under B, and
+$2.925$\,s and $9.973$\,s under C). The remaining nine runs of those blocking
+cases sit on the 5\,s test timeout, as under A (for example, $5.213 \pm 0.015$\,s
+for the last nine B runs of buggy Docker \#25384). We do not interpret wall-clock
+differences as a scheduler-mechanism effect.
+
+\subsection{Interpretation}
+The only case that changes between B and C is the Figure~8 buggy kernel, and A
+and B already agree on the official verdict and on the presence of a race
+warning. That pattern supports the claim that the Go 1.22 per-iteration loop
+variable rule, not the newer toolchain by itself, removes this shared-variable
+race in our kernel. The three control bugs still manifest on Go 1.23.12, and
+Go's runtime deadlock detector still does not fire on the two blocking cases;
+they remain visible only through the test timeout.
+
+This result is relevant to claim C3 only in a limited sense: the race detector
+still reports the shared loop-variable race on a modern toolchain when the old
+language rule is selected, and it reports nothing once the language rule
+eliminates that shared variable. We do not treat the missing warning under
+configuration~C as evidence that the detector became weaker, and we do not fill
+the paper's aggregate Table~12 numbers, which count a different bug set and a
+different protocol.
+
+\input{tables/extension_record}

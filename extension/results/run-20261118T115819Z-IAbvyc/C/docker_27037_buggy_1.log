@@ -1,0 +1,19 @@
+CONFIG=C
+LANGUAGE_VERSION=1.22
+GO_VERSION=go version go1.23.12 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=
+module cs340/extension
+
+go 1.22
+COMMAND=timeout 120s go test -race -v -count=1 -timeout=10s -run \^TestDockerRace\$ ./docker_race 
+=== RUN   TestDockerRace
+v1.19
+v1.18
+v1.20
+v1.17
+--- PASS: TestDockerRace (0.00s)
+PASS
+ok  	cs340/extension/docker_race	1.010s
+COMMAND_EXIT_CODE=0
+RESULT=UNEXPECTED_OR_NOT_REPRODUCED

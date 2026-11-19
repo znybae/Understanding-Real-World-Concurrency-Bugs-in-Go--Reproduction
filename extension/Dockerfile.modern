@@ -1,0 +1,49 @@
+# Modern-Go comparison image: same Ubuntu 18.04.6 linux/amd64 base as the
+# official cs340-go-bugs baseline, with a pinned official Go toolchain.
+# Build from the repository root:
+#   docker build --platform linux/amd64 \
+#     -f extension/Dockerfile.modern \
+#     -t cs340-go-bugs-modern \
+#     extension/
+#
+# Override the toolchain with --build-arg if needed; record the exact
+# version and SHA256 in the evidence directory.
+
+FROM --platform=linux/amd64 ubuntu:18.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ARG GO_VERSION=1.23.12
+ARG GO_SHA256=d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90
+
+# Same packages as the repository-root Dockerfile so CGO, -race, and the
+# checkers have the same userland tools.
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    git \
+    build-essential \
+    python3 \
+    python3-pip \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Official linux-amd64 tarball from go.dev; checksum is required.
+RUN wget -O /tmp/go.linux-amd64.tar.gz \
+        "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" && \
+    echo "${GO_SHA256}  /tmp/go.linux-amd64.tar.gz" | sha256sum -c - && \
+    tar -C /usr/local -xzf /tmp/go.linux-amd64.tar.gz && \
+    rm /tmp/go.linux-amd64.tar.gz
+
+ENV GOROOT=/usr/local/go
+ENV GOPATH=/go
+ENV PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
+ENV CGO_ENABLED=1
+# Use the toolchain installed in this image, even when go.mod says go 1.21.
+ENV GOTOOLCHAIN=local
+ENV GOPROXY=off
+ENV GOSUMDB=off
+
+WORKDIR /workspace
+
+CMD ["/bin/bash"]

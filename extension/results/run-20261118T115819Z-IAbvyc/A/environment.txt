@@ -1,0 +1,69 @@
+Wed Nov 18 11:58:20 UTC 2026
+go version go1.10.8 linux/amd64
+linux
+amd64
+1
+gcc
+
+
+
+
+/go
+/usr/local/go
+GOARCH="amd64"
+GOBIN=""
+GOCACHE="/root/.cache/go-build"
+GOEXE=""
+GOHOSTARCH="amd64"
+GOHOSTOS="linux"
+GOOS="linux"
+GOPATH="/go"
+GORACE="exitcode=66"
+GOROOT="/usr/local/go"
+GOTMPDIR=""
+GOTOOLDIR="/usr/local/go/pkg/tool/linux_amd64"
+GCCGO="gccgo"
+CC="gcc"
+CXX="g++"
+CGO_ENABLED="1"
+CGO_CFLAGS="-g -O2"
+CGO_CPPFLAGS=""
+CGO_CXXFLAGS="-g -O2"
+CGO_FFLAGS="-g -O2"
+CGO_LDFLAGS="-g -O2"
+PKG_CONFIG="pkg-config"
+GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build814602532=/tmp/go-build -gno-record-gcc-switches"
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+Linux 29c94123acbc 6.12.113+ #1 SMP PREEMPT_DYNAMIC Mon Nov  9 20:07:52 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+CONFIG=A
+LANGUAGE_VERSION=gopath
+REPEATS=10
+GORACE=exitcode=66
+GOMAXPROCS=unset
+AVAILABLE_PROCESSORS=8
+CGO_ENABLED_ENV=1
+go.mod: absent (GOPATH mode)
+total 20
+drwxr-xr-x 5 1000 1000 4096 Nov 18 11:58 .
+drwxr-xr-x 5 1000 1000 4096 Nov 18 11:58 ..
+drwxr-xr-x 2 1000 1000 4096 Nov 18 11:58 channel
+drwxr-xr-x 3 1000 1000 4096 Nov 18 11:58 docker_race
+drwxr-xr-x 3 1000 1000 4096 Nov 18 11:58 waitgroup_deadlock
+GO_BINARY_SHA256=faeca0cc198aafbfb28f18c68cde40676d43a5f6674c6ff0774cd24166637f1e  /usr/local/go/bin/go
+GO_DISTRIBUTION_VERSION=go1.10.8
