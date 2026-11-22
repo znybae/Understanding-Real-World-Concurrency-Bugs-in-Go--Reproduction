@@ -49,8 +49,12 @@ proportions and repeated-run outcomes use different denominators.}
     C1 & \shortstack[l]{Message-passing share\\of blocking bugs}
        & \shortstack[l]{About 58\%\\\cite{tu2019go}, Sec.~1}
        & \shortstack[l]{Not estimated;\\selected cases only} \\
-    C2 & \todo{} & \todo{} & \todo{} \\
-    C3 & \todo{} & \todo{} & \todo{} \\
+    C2 & \shortstack[l]{Runtime deadlock\\diagnosis}
+       & \shortstack[l]{2/21 distinct bugs\\\cite{tu2019go}, Table 8}
+       & \shortstack[l]{\#25384: 0/3 diagnoses\\3/3 test timeouts} \\
+    C3 & \shortstack[l]{Data race\\detector report}
+       & \shortstack[l]{10/20 distinct bugs\\3/4 closure bugs\\\cite{tu2019go}, Table 12}
+       & \shortstack[l]{\#27037: 3/3 buggy runs\\with warnings} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -126,9 +130,20 @@ the loop prevented the second task from starting. After moving
 \texttt{Wait()} outside the loop, the fixed variant passed all
 three runs. Neither variant emitted a race warning.
 
-Figure~\ref{fig:reproduction-outcomes} summarizes the expected outcomes,
+Figure~\ref{fig:shared-memory-comparison} summarizes the official Week~2 evidence. Figure~\ref{fig:reproduction-outcomes} summarizes the expected outcomes for Week~3,
 and the right panel of Figure~\ref{fig:race-detection} shows the number
 of runs with race warnings for each variant.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/shared_memory_comparison.pdf}
+  \caption{Shared-memory evidence from the official Week~2 archive.
+    The expected-outcome bars describe the expected symptom in the
+    buggy versions and a passing test in the fixed versions. The
+    detector panels show the paper's distinct-bug counts and the
+    team's race-warning incidences across repeated runs.}
+  \label{fig:shared-memory-comparison}
+\end{figure}
 
 \subsection{Visualization}
 
