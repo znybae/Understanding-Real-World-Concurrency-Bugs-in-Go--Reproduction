@@ -39,13 +39,16 @@ race detector fired every time, and the printed versions contained duplicates
 \subsection{Paper vs.\ Ours}
 \begin{table}[h]
   \centering
-  \caption{Paper vs.\ Ours (mean $\pm$ std over at least three runs).}
+  \caption{Paper claims and reproduction evidence. Aggregate bug
+proportions and repeated-run outcomes use different denominators.}
   \label{tab:paper-vs-ours}
   \begin{tabular}{llll}
     \toprule
     Claim & Metric & Paper & Ours \\
     \midrule
-    C1 & \todo{} & \todo{} & \todo{} \\
+    C1 & \shortstack[l]{Message-passing share\\of blocking bugs}
+       & \shortstack[l]{About 58\%\\\cite{tu2019go}, Sec.~1}
+       & \shortstack[l]{Not estimated;\\selected cases only} \\
     C2 & \todo{} & \todo{} & \todo{} \\
     C3 & \todo{} & \todo{} & \todo{} \\
     \bottomrule
