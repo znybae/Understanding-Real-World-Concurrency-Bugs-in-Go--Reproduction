@@ -1,0 +1,61 @@
+CONFIG=B
+LANGUAGE_VERSION=1.21
+GO_VERSION=go version go1.23.12 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=
+module cs340/extension
+
+go 1.21
+COMMAND=timeout 120s go test -race -v -count=1 -timeout=10s -run \^TestDockerRace\$ ./docker_race 
+=== RUN   TestDockerRace
+v1.21
+v1.21
+==================
+WARNING: DATA RACE
+Read at 0x00c0001a6468 by goroutine 10:
+  cs340/extension/docker_race.main.func1()
+      /workspace/extension/workspace/docker_race/docker_race.go:19 +0xba
+
+Previous write at 0x00c0001a6468 by goroutine 7:
+  cs340/extension/docker_race.main()
+      /workspace/extension/workspace/docker_race/docker_race.go:14 +0x97
+  cs340/extension/docker_race.TestDockerRace()
+      /workspace/extension/workspace/docker_race/docker_27037_test.go:7 +0x1c
+  testing.tRunner()
+      /usr/local/go/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /usr/local/go/src/testing/testing.go:1743 +0x44
+
+Goroutine 10 (running) created at:
+  cs340/extension/docker_race.main()
+      /workspace/extension/workspace/docker_race/docker_race.go:17 +0x7b
+  cs340/extension/docker_race.TestDockerRace()
+      /workspace/extension/workspace/docker_race/docker_27037_test.go:7 +0x1c
+  testing.tRunner()
+      /usr/local/go/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /usr/local/go/src/testing/testing.go:1743 +0x44
+
+Goroutine 7 (running) created at:
+  testing.(*T).Run()
+      /usr/local/go/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /usr/local/go/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /usr/local/go/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /usr/local/go/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /usr/local/go/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:45 +0x164
+==================
+v1.21
+v1.21
+    testing.go:1399: race detected during execution of test
+--- FAIL: TestDockerRace (0.00s)
+FAIL
+FAIL	cs340/extension/docker_race	0.009s
+FAIL
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_RACE

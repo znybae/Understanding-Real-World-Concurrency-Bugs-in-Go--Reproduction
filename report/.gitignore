@@ -9,3 +9,6 @@
 *.toc
 *.synctex.gz
 main.pdf
+
+# Curated experiment logs under results/ (keep ignoring LaTeX *.log in this directory)
+!results/**/*.log

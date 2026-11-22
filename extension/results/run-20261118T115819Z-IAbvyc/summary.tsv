@@ -1,0 +1,181 @@
+iteration	config	language_version	go_version	case	command_exit_code	checker_exit_code	result	duration_s	race_report	deadlock_report	versions	log
+1	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.193	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_1.log
+1	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.154	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_1.log
+1	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.242	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_1.log
+1	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.219	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_1.log
+1	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.207	yes	no	v1.20,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_1.log
+1	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.204	no	no	v1.17,v1.19,v1.20,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_1.log
+2	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.172	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_2.log
+2	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.159	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_2.log
+2	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.203	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_2.log
+2	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.178	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_2.log
+2	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.173	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_2.log
+2	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.184	no	no	v1.17,v1.19,v1.18,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_2.log
+3	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.153	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_3.log
+3	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.156	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_3.log
+3	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.190	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_3.log
+3	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.189	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_3.log
+3	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.179	yes	no	v1.19,v1.20,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_3.log
+3	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.173	no	no	v1.20,v1.18,v1.17,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_3.log
+4	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.143	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_4.log
+4	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.144	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_4.log
+4	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.178	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_4.log
+4	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.185	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_4.log
+4	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.191	yes	no	v1.20,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_4.log
+4	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.191	no	no	v1.17,v1.19,v1.18,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_4.log
+5	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.157	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_5.log
+5	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.161	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_5.log
+5	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.223	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_5.log
+5	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.196	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_5.log
+5	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.183	yes	no	v1.19,v1.20,v1.20,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_5.log
+5	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.187	no	no	v1.17,v1.18,v1.20,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_5.log
+6	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.159	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_6.log
+6	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.161	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_6.log
+6	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.196	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_6.log
+6	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.186	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_6.log
+6	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.190	yes	no	v1.20,v1.20,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_6.log
+6	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.226	no	no	v1.17,v1.18,v1.19,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_6.log
+7	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.169	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_7.log
+7	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.157	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_7.log
+7	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.196	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_7.log
+7	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.206	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_7.log
+7	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.196	yes	no	v1.19,v1.20,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_7.log
+7	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.221	no	no	v1.17,v1.19,v1.20,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_7.log
+8	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.160	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_8.log
+8	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.153	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_8.log
+8	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.198	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_8.log
+8	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.197	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_8.log
+8	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.193	yes	no	v1.18,v1.19,v1.20,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_8.log
+8	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.218	no	no	v1.17,v1.18,v1.20,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_8.log
+9	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.162	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_9.log
+9	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.163	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_9.log
+9	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.188	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_9.log
+9	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.177	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_9.log
+9	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.172	yes	no	v1.18,v1.19,v1.20,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_9.log
+9	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.182	no	no	v1.17,v1.18,v1.20,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_9.log
+10	A	gopath	go1.10.8	docker_24007_buggy	1	0	EXPECTED_PANIC	0.150	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_24007_buggy_10.log
+10	A	gopath	go1.10.8	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.165	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/k8s_5316_buggy_10.log
+10	A	gopath	go1.10.8	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.185	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_buggy_10.log
+10	A	gopath	go1.10.8	docker_25384_fixed	0	0	FIXED_PASS	1.192	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_25384_fixed_10.log
+10	A	gopath	go1.10.8	docker_27037_buggy	1	0	EXPECTED_RACE	0.184	yes	no	v1.18,v1.19,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_buggy_10.log
+10	A	gopath	go1.10.8	docker_27037_fixed	0	0	FIXED_PASS	1.188	no	no	v1.17,v1.18,v1.19,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/A/docker_27037_fixed_10.log
+1	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	3.100	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_1.log
+1	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.133	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_1.log
+1	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	10.312	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_1.log
+1	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.219	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_1.log
+1	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.249	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_1.log
+1	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.252	no	no	v1.20,v1.18,v1.17,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_1.log
+2	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.150	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_2.log
+2	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.140	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_2.log
+2	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.226	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_2.log
+2	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.184	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_2.log
+2	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.201	yes	no	v1.20,v1.20,v1.20,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_2.log
+2	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.207	no	no	v1.20,v1.19,v1.17,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_2.log
+3	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.125	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_3.log
+3	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.136	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_3.log
+3	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.215	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_3.log
+3	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.243	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_3.log
+3	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.192	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_3.log
+3	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.190	no	no	v1.18,v1.20,v1.17,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_3.log
+4	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.150	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_4.log
+4	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.154	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_4.log
+4	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.201	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_4.log
+4	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.196	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_4.log
+4	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.241	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_4.log
+4	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.230	no	no	v1.19,v1.17,v1.20,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_4.log
+5	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.129	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_5.log
+5	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.166	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_5.log
+5	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.238	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_5.log
+5	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.186	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_5.log
+5	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.182	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_5.log
+5	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.179	no	no	v1.20,v1.17,v1.19,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_5.log
+6	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.121	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_6.log
+6	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.164	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_6.log
+6	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.218	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_6.log
+6	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.225	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_6.log
+6	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.184	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_6.log
+6	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.218	no	no	v1.20,v1.18,v1.17,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_6.log
+7	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.152	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_7.log
+7	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.137	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_7.log
+7	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.220	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_7.log
+7	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.192	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_7.log
+7	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.217	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_7.log
+7	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.205	no	no	v1.20,v1.18,v1.17,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_7.log
+8	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.211	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_8.log
+8	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.167	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_8.log
+8	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.214	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_8.log
+8	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.201	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_8.log
+8	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.219	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_8.log
+8	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.202	no	no	v1.19,v1.17,v1.18,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_8.log
+9	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.148	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_9.log
+9	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.152	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_9.log
+9	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.190	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_9.log
+9	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.184	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_9.log
+9	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.180	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_9.log
+9	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.179	no	no	v1.19,v1.18,v1.20,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_9.log
+10	B	1.21	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.127	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_24007_buggy_10.log
+10	B	1.21	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.128	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/k8s_5316_buggy_10.log
+10	B	1.21	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.198	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_buggy_10.log
+10	B	1.21	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.198	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_25384_fixed_10.log
+10	B	1.21	go1.23.12	docker_27037_buggy	1	0	EXPECTED_RACE	0.190	yes	no	v1.21,v1.21,v1.21,v1.21	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_buggy_10.log
+10	B	1.21	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.200	no	no	v1.19,v1.18,v1.20,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/B/docker_27037_fixed_10.log
+1	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	2.925	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_1.log
+1	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.148	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_1.log
+1	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	9.973	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_1.log
+1	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.232	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_1.log
+1	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.226	no	no	v1.19,v1.18,v1.20,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_1.log
+1	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.208	no	no	v1.17,v1.20,v1.18,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_1.log
+2	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.126	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_2.log
+2	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.137	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_2.log
+2	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.226	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_2.log
+2	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.186	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_2.log
+2	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.176	no	no	v1.19,v1.17,v1.20,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_2.log
+2	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.185	no	no	v1.20,v1.17,v1.18,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_2.log
+3	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.135	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_3.log
+3	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.144	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_3.log
+3	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.199	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_3.log
+3	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.183	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_3.log
+3	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.200	no	no	v1.20,v1.17,v1.18,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_3.log
+3	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.188	no	no	v1.19,v1.17,v1.20,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_3.log
+4	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.149	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_4.log
+4	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.163	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_4.log
+4	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.210	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_4.log
+4	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.193	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_4.log
+4	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.216	no	no	v1.18,v1.17,v1.19,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_4.log
+4	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.229	no	no	v1.20,v1.18,v1.19,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_4.log
+5	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.179	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_5.log
+5	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.159	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_5.log
+5	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.225	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_5.log
+5	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.215	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_5.log
+5	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.214	no	no	v1.20,v1.18,v1.19,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_5.log
+5	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.188	no	no	v1.20,v1.19,v1.17,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_5.log
+6	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.170	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_6.log
+6	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.157	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_6.log
+6	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.221	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_6.log
+6	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.181	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_6.log
+6	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.184	no	no	v1.19,v1.18,v1.20,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_6.log
+6	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.183	no	no	v1.19,v1.18,v1.17,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_6.log
+7	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.138	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_7.log
+7	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.147	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_7.log
+7	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.221	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_7.log
+7	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.181	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_7.log
+7	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.182	no	no	v1.20,v1.18,v1.19,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_7.log
+7	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.216	no	no	v1.20,v1.17,v1.18,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_7.log
+8	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.126	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_8.log
+8	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.146	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_8.log
+8	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.223	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_8.log
+8	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.191	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_8.log
+8	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.197	no	no	v1.20,v1.17,v1.19,v1.18	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_8.log
+8	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.213	no	no	v1.17,v1.18,v1.20,v1.19	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_8.log
+9	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.153	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_9.log
+9	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.126	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_9.log
+9	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.195	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_9.log
+9	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.213	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_9.log
+9	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.183	no	no	v1.19,v1.17,v1.18,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_9.log
+9	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.185	no	no	v1.20,v1.19,v1.18,v1.17	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_9.log
+10	C	1.22	go1.23.12	docker_24007_buggy	1	0	EXPECTED_PANIC	0.168	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_24007_buggy_10.log
+10	C	1.22	go1.23.12	k8s_5316_buggy	1	0	EXPECTED_BLOCKING	5.158	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/k8s_5316_buggy_10.log
+10	C	1.22	go1.23.12	docker_25384_buggy	1	0	EXPECTED_BLOCKING	5.199	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_buggy_10.log
+10	C	1.22	go1.23.12	docker_25384_fixed	0	0	FIXED_PASS	1.192	no	no		/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_25384_fixed_10.log
+10	C	1.22	go1.23.12	docker_27037_buggy	0	1	UNEXPECTED_OR_NOT_REPRODUCED	1.223	no	no	v1.18,v1.17,v1.19,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_buggy_10.log
+10	C	1.22	go1.23.12	docker_27037_fixed	0	0	FIXED_PASS	1.239	no	no	v1.18,v1.17,v1.19,v1.20	/workspace/extension/results/run-20261118T115819Z-IAbvyc/C/docker_27037_fixed_10.log

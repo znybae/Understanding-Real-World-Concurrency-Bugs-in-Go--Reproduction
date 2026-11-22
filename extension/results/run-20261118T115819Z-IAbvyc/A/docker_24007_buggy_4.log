@@ -1,0 +1,17 @@
+CONFIG=A
+LANGUAGE_VERSION=gopath
+GO_VERSION=go version go1.10.8 linux/amd64
+WORKDIR=/workspace/extension/workspace
+GOMOD=absent
+COMMAND=timeout 120s go test -v -count=1 -timeout=10s -run \^TestDocker24007\$ ./channel 
+=== RUN   TestDocker24007
+panic: close of closed channel
+
+goroutine 7 [running]:
+_/workspace/extension/workspace/channel.TestDocker24007.func1()
+	/workspace/extension/workspace/channel/docker_24007_test.go:22 +0xbf
+created by _/workspace/extension/workspace/channel.TestDocker24007
+	/workspace/extension/workspace/channel/docker_24007_test.go:27 +0x124
+FAIL	_/workspace/extension/workspace/channel	0.003s
+COMMAND_EXIT_CODE=1
+RESULT=EXPECTED_PANIC

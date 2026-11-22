@@ -1,0 +1,98 @@
+Wed Nov 18 12:02:53 UTC 2026
+go version go1.23.12 linux/amd64
+linux
+amd64
+1
+gcc
+local
+off
+off
+
+/go
+/usr/local/go
+GO111MODULE=''
+GOARCH='amd64'
+GOBIN=''
+GOCACHE='/root/.cache/go-build'
+GOENV='/root/.config/go/env'
+GOEXE=''
+GOEXPERIMENT=''
+GOFLAGS=''
+GOHOSTARCH='amd64'
+GOHOSTOS='linux'
+GOINSECURE=''
+GOMODCACHE='/go/pkg/mod'
+GONOPROXY=''
+GONOSUMDB=''
+GOOS='linux'
+GOPATH='/go'
+GOPRIVATE=''
+GOPROXY='off'
+GOROOT='/usr/local/go'
+GOSUMDB='off'
+GOTMPDIR=''
+GOTOOLCHAIN='local'
+GOTOOLDIR='/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=''
+GOVERSION='go1.23.12'
+GODEBUG=''
+GOTELEMETRY='local'
+GOTELEMETRYDIR='/root/.config/go/telemetry'
+GCCGO='gccgo'
+GOAMD64='v1'
+AR='ar'
+CC='gcc'
+CXX='g++'
+CGO_ENABLED='1'
+GOMOD='/dev/null'
+GOWORK=''
+CGO_CFLAGS='-O2 -g'
+CGO_CPPFLAGS=''
+CGO_CXXFLAGS='-O2 -g'
+CGO_FFLAGS='-O2 -g'
+CGO_LDFLAGS='-O2 -g'
+PKG_CONFIG='pkg-config'
+GOGCCFLAGS='-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build3783735482=/tmp/go-build -gno-record-gcc-switches'
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+Linux c3c734135d13 6.12.113+ #1 SMP PREEMPT_DYNAMIC Mon Nov  9 20:07:52 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+CONFIG=C
+LANGUAGE_VERSION=1.22
+REPEATS=10
+GORACE=exitcode=66
+GOMAXPROCS=unset
+AVAILABLE_PROCESSORS=8
+CGO_ENABLED_ENV=1
+----- go.mod -----
+module cs340/extension
+
+go 1.22
+----- go list -----
+cs340/extension 1.22
+error obtaining VCS status: exit status 128
+	Use -buildvcs=false to disable VCS stamping.
+error obtaining VCS status: exit status 128
+	Use -buildvcs=false to disable VCS stamping.
+error obtaining VCS status: exit status 128
+	Use -buildvcs=false to disable VCS stamping.
+error obtaining VCS status: exit status 128
+	Use -buildvcs=false to disable VCS stamping.
+GO_BINARY_SHA256=b0cc8eb31a9143fda5ec0972f337732cd935765e1db5cfda625f7a34e4a6e974  /usr/local/go/bin/go
+GO_DISTRIBUTION_VERSION=go1.23.12
+time 2025-08-01T19:18:26Z
+
