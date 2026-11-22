@@ -39,18 +39,70 @@ race detector fired every time, and the printed versions contained duplicates
 \subsection{Paper vs.\ Ours}
 \begin{table}[h]
   \centering
-  \caption{Paper vs.\ Ours (mean $\pm$ std over at least three runs).}
+  \caption{Paper claims and reproduction evidence. Aggregate bug
+proportions and repeated-run outcomes use different denominators.}
   \label{tab:paper-vs-ours}
   \begin{tabular}{llll}
     \toprule
     Claim & Metric & Paper & Ours \\
     \midrule
-    C1 & \todo{} & \todo{} & \todo{} \\
+    C1 & \shortstack[l]{Message-passing share\\of blocking bugs}
+       & \shortstack[l]{About 58\%\\\cite{tu2019go}, Sec.~1}
+       & \shortstack[l]{Not estimated;\\selected cases only} \\
     C2 & \todo{} & \todo{} & \todo{} \\
     C3 & \todo{} & \todo{} & \todo{} \\
     \bottomrule
   \end{tabular}
 \end{table}
+
+\subsection{Channel Reproduction Results}
+\label{sec:channel-results}
+
+We summarize the six official Week~2 runs of the two channel cases
+under Go 1.10.8 on Linux/amd64. Each case was executed in three separate
+test invocations. Define the outcome indicator as 1 when a run exhibits
+the expected symptom and 0 otherwise. Both cases matched their expected
+outcome in all three runs (3/3), giving an indicator mean of 1.00 and a
+sample standard deviation of 0.00.
+
+\paragraph{Kubernetes \#5316 (Figure~1).}
+In all three runs, the test timed out after five seconds, and the worker
+stack showed \texttt{[chan send]}. The parent stops receiving after its
+timeout. The worker then attempts to send on an unbuffered channel,
+which requires a matching receiver, so it cannot complete.
+Our model deliberately orders these events and adds a test-only wait
+to keep the blocked worker observable. The resulting test timeout is
+not a report from Go's runtime deadlock detector.
+
+\paragraph{Docker \#24007 (Figure~10).}
+All three runs terminated with an unrecovered
+\texttt{close of closed channel} panic. Both workers are forced to
+enter the \texttt{default} branch before either closes the channel.
+Checking whether a channel is closed and then closing it are not one
+atomic operation: after the first close succeeds, the second close
+panics. This is a non-blocking message-passing bug in the paper's
+classification~\cite{tu2019go}.
+
+\paragraph{Implication for Claim~C1.}
+The Kubernetes case illustrates how message passing can leave a
+goroutine blocked when the receiver abandons the communication.
+Channels alone do not ensure that sender and receiver lifetimes are
+coordinated. The Docker case illustrates a separate channel lifecycle
+error. These selected models provide mechanism-level evidence, but
+cannot estimate the share of blocking bugs caused by message passing.
+The observed 3/3 outcomes reflect controlled executions rather than
+natural triggering probabilities in the original applications.
+
+\paragraph{Evidence.}
+These results use the official archive
+\texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}:
+\texttt{k8s\_5316\_buggy\_1.log} through
+\texttt{k8s\_5316\_buggy\_3.log}, and
+\texttt{docker\_24007\_buggy\_1.log} through
+\texttt{docker\_24007\_buggy\_3.log}.
+The corresponding records and indicator statistics are available in
+\texttt{report/data/test\_record.csv} and the archive's
+\texttt{statistics.csv}, respectively.
 
 \subsection{Shared-Memory Reproduction Results}
 \label{sec:shared-memory-results}

@@ -2,7 +2,21 @@
 \label{sec:analysis}
 
 \subsection{Claim Verdicts}
-\todo{Supported / partially supported / not supported / inconclusive for C1--C3.}
+\paragraph{C1: Inconclusive for the aggregate share; mechanism reproduced.}
+The paper reports that about 58\% of blocking bugs were caused by
+message passing~\cite{tu2019go}. Our selected cases do not provide a
+representative sample for estimating that proportion.
+Kubernetes \#5316 exhibited a blocked channel send in all three
+official Week~2 runs. This supports the mechanism: after the parent
+times out and stops receiving, the worker cannot complete its
+unbuffered send. Docker \#24007 reproduced a concurrent-close panic
+in all three runs, but is classified as non-blocking and therefore
+does not contribute evidence about the share of blocking bugs.
+These outcomes support the qualitative observation that channels
+can be misused, while leaving C1's aggregate proportion untested.
+See \Cref{sec:channel-results} for the evidence.
+
+\todo{Add the C2 and C3 verdicts using the corresponding detector evidence.}
 
 \subsection{Gaps}
 \todo{Absolute and relative differences from the paper.}
@@ -45,10 +59,8 @@ workloads.
 \label{sec:deviation-attribution}
 
 This subsection records differences among hosts, detectors, and language
-versions. It does not replace the shared-memory race-detection discussion
-above, and it does not fill the paper-versus-ours cells for claims C1--C3,
-which remain unset because we have not re-extracted the paper's original
-aggregate numbers from a verified source in this revision.
+versions. It complements the claim verdicts and shared-memory
+race-detection discussion above.
 
 \paragraph{Hosts.}
 The official Week~2 full-suite evidence was collected on WSL2
@@ -110,5 +122,6 @@ and the default of eight logical CPUs. Wall-clock times include compilation.
 \texttt{go list -m} confirmed the module language versions, but a follow-up
 package-level \texttt{go list} inside the container printed VCS-stamping
 errors (exit status 128) that we record without treating them as
-language-version failures. Claim verdicts C1--C3 in \Cref{tab:paper-vs-ours}
-remain to do.
+language-version failures. The C1 comparison in \Cref{tab:paper-vs-ours} distinguishes the paper's
+aggregate proportion from our selected-case evidence. The C2 and C3
+comparisons and verdicts still require completion.
