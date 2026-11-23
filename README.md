@@ -56,7 +56,7 @@ docker build --platform linux/amd64 -t cs340-go-bugs .
 
 ## 3. One-Command Automated Reproduction
 
-You can run the full 3-round verification suite (6 test targets $\times$ 3 rounds = 18 total checks) directly from the repository root without entering an interactive shell:
+You can run the full 3-round verification suite (6 test targets x 3 rounds = 18 total checks) directly from the repository root without entering an interactive shell:
 
 * **On macOS / Linux:**
   ```bash
@@ -68,7 +68,7 @@ You can run the full 3-round verification suite (6 test targets $\times$ 3 round
   ```
 
 ### Expected Runtime & Output
-* **Expected Runtime:** ~35–50 seconds for 3 complete rounds (dominated by intentional 5-second timeout windows on blocking/deadlock cases `k8s_5316` and `docker_25384`).
+* **Expected Runtime:** ~35 to 50 seconds for 3 complete rounds (dominated by intentional 5-second timeout windows on blocking/deadlock cases `k8s_5316` and `docker_25384`).
 * **Generated Artifacts (Local Only):** Raw logs and aggregated summary tables (`summary.tsv`, `statistics.csv`, `environment.txt`, `input_sha256.txt`) are written to `logs/full_suite/run-<timestamp>/` (excluded from Git tracking via `.gitignore`).
 * **Expected Verification Verdict:** All 18/18 checks match their expected symptoms (`EXPECTED_BLOCKING`, `EXPECTED_PANIC`, `EXPECTED_RACE`, or `FIXED_PASS`) with **0 unexpected mismatches**, matching the archived official run under `report/results/week2_full_suite/`.
 
@@ -79,3 +79,11 @@ You can run the full 3-round verification suite (6 test targets $\times$ 3 round
 * **Go Toolchain:** `go1.10.8 linux/amd64` (GOPATH mode, `CGO_ENABLED=1`)
 * **C Compiler:** GCC 7.5.0 (for `-race` runtime support)
 * **Target Architecture:** `linux/amd64`
+
+---
+
+## 5. Credits, Starting Commit & License
+
+* **Original Paper:** Tengfei Tu, Xiaoyu Liu, Linhai Song, and Yiying Zhang, *"Understanding Real-World Concurrency Bugs in Go"*, ASPLOS 2019.
+* **Upstream Repository:** [system-pclub/go-concurrency-bugs](https://github.com/system-pclub/go-concurrency-bugs) (Apache-2.0 / upstream open-source benchmark suite).
+* **Starting Repository Commit & Modified Files:** Our baseline reproduction architecture was established at commit `312d6da` (and Week-2 integration commit `72cb93d`), with minimal standalone Go test kernels added under `bugs/`, automated multi-round drivers under `scripts/`, visualization scripts under `analysis/`, modern Go (1.22+) evaluation suites under `extension/`, and LaTeX report sources under `report/`.
