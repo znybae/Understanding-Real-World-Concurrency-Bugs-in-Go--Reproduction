@@ -16,44 +16,63 @@ These outcomes support the qualitative observation that channels
 can be misused, while leaving C1's aggregate proportion untested.
 See \Cref{sec:channel-results} for the evidence.
 
-\todo{Add the C2 and C3 verdicts using the corresponding detector evidence.}
+\paragraph{C2 (Table 8): Inconclusive for benchmark coverage.}
+Tu et al.~\cite{tu2019go} reported runtime deadlock diagnoses for 2 of 21
+distinct blocking bugs (9.5\%). In the reduced Docker \#25384 test, all three
+buggy runs timed out with \texttt{sync.(*WaitGroup).Wait} in the stack. The
+runtime deadlock message was absent in all three runs (0/3,
+$0\% \pm 0$ percentage points for the message indicator). The test
+harness has a timeout, so these runs establish blocking in this
+harness and leave the paper's benchmark coverage inconclusive.
 
-\subsection{Gaps}
-\todo{Absolute and relative differences from the paper.}
+\paragraph{C3 (Table 12): Inconclusive for benchmark coverage.}
+The paper detected 10 of 20 distinct non-blocking bugs (50\%), including
+3 of 4 anonymous-function bugs (75\%), using 100 runs per bug and counting
+each bug once if a warning appeared. Our reduced Docker \#27037 variant
+produced at least one race warning in 3/3 buggy runs
+($100\% \pm 0$ percentage points) and 0/3 fixed runs
+($0\% \pm 0$ percentage points). This supports detection of the
+conflicting accesses in this example. Coverage across the original
+benchmark remains inconclusive.
 
-\subsection{Evidence}
-\todo{Controlled re-runs or checks supporting each explanation.}
+\subsection{Comparable Differences}
+Within the official Week~2 run, the buggy and fixed versions used the
+same Go 1.10.8 toolchain, host, and test settings within each case.
+For \#25384 the timeout incidence fell from 3/3 to 0/3. For \#27037 the
+race-warning incidence also fell from 3/3 to 0/3. Each reduction is
+100 percentage points in absolute terms and 100\% relative to its buggy
+baseline. These are paired comparisons of variants under the same test
+protocol. Paper-to-team absolute and relative gaps in benchmark coverage
+are undefined because the paper counts distinct bugs and the team counts
+repeated test runs of selected models. The paper's figures provide
+mechanism baselines without per-case rates for these two test harnesses.
+The official Week~2 raw logs and \texttt{statistics.csv} support these
+comparisons (\Cref{sec:shared-memory-results}).
 
-\subsection{Limitations}
-\todo{What this reproduction cannot show.}
+\subsection{Mechanism Evidence}
+For \#25384, \texttt{Add(2)} registers two tasks before the loop. The
+first task calls \texttt{Done()}, leaving the counter at one, while the
+main goroutine waits before the second task can even start. Moving
+\texttt{Wait()} after the loop allows both tasks to finish. For
+\#27037 the first buggy run reports a read at line~19 and a write at
+line~14 of \texttt{docker\_race.go} to the same address; the closure
+reads the shared loop variable while the parent can still modify it.
+Passing the index by value avoids this shared access. Each fixed
+\#27037 run printed the four expected versions once each.
 
-\subsection{Race Detection on the Shared-Memory Cases}
-
-Tu et al.~\cite{tu2019go} reported in Table~12 that Go's race
-detector detected 10 of 20 non-blocking bugs, including 3 of 4
-bugs involving anonymous functions. The authors counted a bug as
-detected if it produced at least one report within 100 runs.
-
-In our reproduction, the buggy Docker \#27037 variant produced
-a race warning in all three runs. Each run counted once even
-when the detector issued multiple warnings. This result shows
-that the detector can identify the conflicting accesses to the
-loop variable in our reproduction of the anonymous-function bug.
-Figure~\ref{fig:race-detection} uses two units of analysis: the
-paper counts distinct bugs, while our experiment counts repeated
-runs of each variant. Our three runs establish repeatability
-for this case under the tested setup. Estimating detection
-across the paper's benchmark would require testing its broader
-set of bugs under the same run protocol.
-
-The buggy Docker \#25384 variant timed out in all three runs
-without emitting a race warning. Its failure arose because
-\texttt{Wait()} blocked before the loop could start the
-remaining task. The test timeout exposed this blocking failure.
-Table~12 covers non-blocking bugs, so this case is outside the
-scope of its race-detection evaluation. Both fixed variants
-passed all three tests without race warnings under the tested
-workloads.
+\subsection{Shared-Memory Limitations}
+The experiment uses two reduced Docker bug models and three runs per
+variant. Business logic was removed, and the version loop was shortened
+from five iterations to four. The harness makes the blocking symptom
+observable through a test timeout. A warning-free run establishes the
+observed outcome under that workload. These runs leave production
+triggering frequencies and broader detector coverage unknown. Host
+CPU allocation and kernel can affect scheduling, but the host snapshots
+also differ in other settings. The archive contains no CPU-only or
+kernel-only comparison that isolates either effect. The containerized
+toolchain and raw logs facilitate repeating these models, while
+full-application workloads and a matched detector protocol would be
+needed for broader comparison.
 
 \subsection{Deviation Attribution}
 \label{sec:deviation-attribution}
@@ -123,5 +142,4 @@ and the default of eight logical CPUs. Wall-clock times include compilation.
 package-level \texttt{go list} inside the container printed VCS-stamping
 errors (exit status 128) that we record without treating them as
 language-version failures. The C1 comparison in \Cref{tab:paper-vs-ours} distinguishes the paper's
-aggregate proportion from our selected-case evidence. The C2 and C3
-comparisons and verdicts still require completion.
+aggregate proportion from our selected-case evidence. The C2 and C3 comparisons above use the same distinction between distinct bugs and repeated runs.
