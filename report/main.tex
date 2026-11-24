@@ -43,7 +43,22 @@
 \maketitle
 
 \begin{abstract}
-\todo{One paragraph: which paper, which claims we tested, our setup, and the overall verdict.}
+We reproduce selected results from Tu et al.~\cite{tu2019go},
+\emph{Understanding Real-World Concurrency Bugs in Go} (ASPLOS 2019).
+We test three claims: that message passing accounts for a substantial share
+of blocking bugs (C1), that Go's runtime deadlock detector finds only a
+small fraction of blocking bugs (C2, Table~8), and that the data-race
+detector finds only part of the non-blocking bugs (C3, Table~12).
+Inside a pinned Ubuntu 18.04.6 and Go 1.10.8 container we reran six reduced
+cases---Kubernetes \#5316, Docker \#24007, Docker \#25384 and Docker \#27037,
+including two fixed variants---three times each. Every official check
+matched its expected symptom (indicator mean $1.00 \pm 0.00$).
+The selected mechanisms were reproduced, but the paper's aggregate
+proportions remain inconclusive because we did not re-evaluate the original
+benchmark. An extension that changes one factor at a time shows that the
+Figure~8 loop-variable race disappears under the Go 1.22 language rule on
+an otherwise identical Go 1.23.12 toolchain, while the three control bugs
+still appear. Overall, the work is partially reproduced.
 \end{abstract}
 
 \input{sections/introduction}
@@ -55,16 +70,35 @@
 \input{sections/conclusion}
 
 \section*{Contribution Statement}
-\todo{One line per member describing what they did, consistent with the Git history.}
+The following contributions are consistent with the Git history of the
+team repository.
 \begin{itemize}
-  \item WANG Yue: Engineering infrastructure and environment (Dockerfile, scripts, README).
-  \item CHENG Yuxuan: Reproduction of channel-related blocking bugs (\texttt{bugs/channel/}).
-  \item ZHU Nuoyan: Reproduction of shared-memory bugs and race detection (\texttt{bugs/shared\_memory/}).
-  \item WANG Jiuzhou: Extension experiment and report coordination (\texttt{extension/}, \texttt{report/}).
+  \item WANG Yue (1240028733): Project layout, the shared Dockerfile and
+        test runner, Week~2 suite integration, the root \texttt{README},
+        and the reproduction-setup and configuration-deviation sections.
+  \item CHENG Yuxuan (1240029326): Channel reproductions of Kubernetes
+        \#5316 and Docker \#24007, the corresponding run instructions,
+        and the Channel results and Claim~C1 mechanism discussion.
+  \item ZHU Nuoyan (1240027310): Shared-memory reproductions of Docker
+        \#25384 and Docker \#27037, the report figures, the race-detection
+        analysis, and the C1--C3 claim verdicts with the shared-memory
+        discrepancy discussion.
+  \item WANG Jiuzhou (1240028606): The \LaTeX{} report structure, the
+        Week~2 test record from the official logs, the modern-Go A/B/C
+        extension (180 runs) and its report section, deviation
+        attribution, and coordination of the abstract, conclusion, and
+        required statements.
 \end{itemize}
 
 \section*{AI Usage Statement}
-\todo{State which AI tools were used, for what, and how their output was checked.}
+The group used an AI assistant (Grok Bot) to help implement the extension
+runner and summarizer, draft and revise English report text (especially the
+extension, deviation attribution, abstract, conclusion, and these
+statements), organize experiment records, and troubleshoot the Git and
+Overleaf workflow. Every quantitative result in the report was taken from
+archived official logs and checked against those files. AI-generated
+wording was reviewed by the corresponding authors before inclusion. No AI
+tool was used to invent experimental numbers.
 
 \bibliographystyle{plain}
 \bibliography{references}
