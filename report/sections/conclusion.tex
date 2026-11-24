@@ -2,7 +2,21 @@
 \label{sec:conclusion}
 
 \subsection{Overall Verdict}
-\todo{One sentence: reproduced, partially reproduced, or not reproduced.}
+This study \emph{partially reproduced} Tu et al.~\cite{tu2019go}: the six
+selected kernels reproduced their expected symptoms under the official
+Go 1.10.8 setup, but claims C1--C3 remain inconclusive at the paper's
+aggregate, distinct-bug scale, and the Figure~8 race disappears under the
+Go 1.22 per-iteration language rule rather than because a newer toolchain
+is used by itself.
 
 \subsection{Lessons Learned}
-\todo{Insights into reproducing systems research.}
+A pinned container image is not enough if the language version and the
+toolchain are allowed to change together. In the extension, Go 1.23.12 still
+exhibited the Figure~8 race when \texttt{go.mod} selected the old rule, and
+the race disappeared only after that one language-version setting was
+changed. Selected kernels also cannot stand in for the paper's benchmark
+counts: our official runs establish repeatable mechanisms, not the original
+proportions over distinct bugs. Finally, a test timeout is not a runtime
+deadlock diagnosis. None of the official Week~2 or extension logs contained
+\texttt{all goroutines are asleep - deadlock}, so detector claims have to be
+scored against the detector's own message, not against harness timeouts.
