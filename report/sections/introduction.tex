@@ -9,13 +9,13 @@ programs less error-prone. The authors study bugs collected from six large open-
 Go applications (Docker, Kubernetes, etcd, gRPC, CockroachDB and BoltDB), classify them
 as \emph{blocking} or \emph{non-blocking} and by cause (shared memory vs.\ message
 passing), and evaluate Go's built-in deadlock detector and data race detector.
-\todo{Check the numbers and wording against the paper before submission.}
 
 \subsection{Claims Tested}
-\todo{Pick 1--3 claims and link each to a table or figure in the paper.}
+We test the following three claims from Tu et al.~\cite{tu2019go}. Each claim is
+linked to the paper location used in \Cref{tab:paper-vs-ours}.
 \begin{enumerate}
-  \item \textbf{C1:} Message passing causes a substantial share of blocking bugs.
-        \todo{link to Table/Figure X of the paper}
+  \item \textbf{C1:} Message passing causes a substantial share of blocking bugs
+        (about 58\% in Section~1 of Tu et al.~\cite{tu2019go}).
   \item \textbf{C2:} Go's built-in runtime deadlock detector detects only a small
         fraction of the reproduced blocking bugs (Table~8 of Tu et al.~\cite{tu2019go}).
   \item \textbf{C3:} Go's data race detector detects only part of the reproduced
@@ -23,4 +23,11 @@ passing), and evaluate Go's built-in deadlock detector and data race detector.
 \end{enumerate}
 
 \subsection{Scope}
-\todo{Which bugs from the paper's benchmark we reproduce, how many runs, and any reduced scale.}
+We reproduce four reduced kernels taken from the paper's examples:
+Kubernetes \#5316 (Figure~1), Docker \#24007 (Figure~10), Docker \#25384 (Figure~5)
+and Docker \#27037 (Figure~8), together with the fixed variants of the two
+shared-memory cases. We do not rerun the paper's full bug collection or its
+100-run detection protocol. The official reproduction uses three independent
+runs of each of the six cases under Go 1.10.8 (18 checks). The extension repeats
+all six cases ten times in each of three controlled configurations (180 runs)
+on the same host and container OS, changing one factor at a time.
