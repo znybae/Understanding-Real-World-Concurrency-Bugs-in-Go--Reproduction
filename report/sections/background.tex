@@ -41,24 +41,29 @@ a data race or a panic. By \emph{cause}, a bug stems from misuse of
         It cannot report races on paths that were not executed.
 \end{itemize}
 
+\Needspace{16\baselineskip}
 \subsection{Bugs Reproduced in This Work}
 \Cref{tab:cases} lists the four bugs we reproduce, one per figure of the paper.
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Bug cases reproduced in this work.}
   \label{tab:cases}
-  \begin{tabular}{lllll}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\linewidth}{L{1.65cm}L{2.75cm}L{2.1cm}L{2.4cm}Y}
     \toprule
     Paper figure & Original bug & Behavior & Cause & Our test \\
     \midrule
-    Figure 1  & Kubernetes \#5316 & Blocking     & Message passing & \texttt{k8s\_5316\_test.go} \\
-    Figure 10 & Docker \#24007    & Non-blocking & Message passing & \texttt{docker\_24007\_test.go} \\
-    Figure 5  & Docker \#25384    & Blocking     & Shared memory   & \texttt{docker\_25384\_test.go} \\
-    Figure 8  & Docker \#27037    & Non-blocking & Shared memory   & \texttt{docker\_27037\_test.go} \\
+    Figure 1  & Kubernetes \#5316 & Blocking     & Message passing & \path{channel/k8s_5316_test.go} \\
+    Figure 10 & Docker \#24007    & Non-blocking & Message passing & \path{channel/docker_24007_test.go} \\
+    Figure 5  & Docker \#25384    & Blocking     & Shared memory   & \path{shared_memory/waitgroup_deadlock/docker_25384_test.go} \\
+    Figure 8  & Docker \#27037    & Non-blocking & Shared memory   & \path{shared_memory/docker_race/docker_27037_test.go} \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
+All test paths above are relative to \path{bugs/}; figure numbers in this
+table refer to Tu et al.~\cite{tu2019go}.
 
 \begin{itemize}
   \item \textbf{Kubernetes \#5316 (Figure 1).} A child goroutine sends its result on

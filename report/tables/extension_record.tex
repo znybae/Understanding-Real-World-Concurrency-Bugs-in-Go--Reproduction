@@ -1,7 +1,8 @@
 % Summary of the official Week 3 extension run (N=10 per cell).
 % Per-run rows are in report/data/extension_record.csv and
 % extension/results/run-20261118T115819Z-IAbvyc/.
-\begin{table}[h]
+\begin{landscape}
+\begin{table}[p]
   \centering
   \caption{Official Week~3 modern-Go comparison on this host
     (18 Nov 2026, UTC+8, Asia/Shanghai).
@@ -15,9 +16,10 @@
     configuration~C the buggy Figure~8 case is not expected to remain
     \texttt{EXPECTED\_RACE}.}
   \label{tab:extension-outcomes}
-  \small
-  \setlength{\tabcolsep}{2.5pt}
-  \begin{tabular}{lllcrrc}
+  \footnotesize
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabularx}{\linewidth}{L{2.5cm}L{1.2cm}c L{4.1cm}Ycc}
     \toprule
     Case & Ver. & Cfg & Toolchain / language & Official & Race & Duration (s) \\
     \midrule
@@ -40,8 +42,9 @@
     docker\_27037 & fixed & B & go1.23.12 / go 1.21  & PASS 10/10     & 0/10 & $1.206 \pm 0.023$ \\
     docker\_27037 & fixed & C & go1.23.12 / go 1.22  & PASS 10/10     & 0/10 & $1.203 \pm 0.020$ \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
+\end{landscape}
 
 \begin{table}[H]
   \centering

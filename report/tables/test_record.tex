@@ -1,13 +1,13 @@
 % Test record table. One row per (case, version, run), filled from the official Week 2 logs.
 % Keep the same rows as report/data/test_record.csv.
-\begin{table}[h]
+\begin{table}[H]
   \centering
-  \caption{Official Week~2 test record (Go 1.10.8, Docker, 14 Nov 2026).
-    Raw logs are in \texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}.}
+  \caption{Official Week~2 test record (Go 1.10.8, Docker, 14 Nov 2026).}
   \label{tab:test-record}
-  \small
+  \scriptsize
   \setlength{\tabcolsep}{3pt}
-  \begin{tabular}{llclllp{3.4cm}}
+  \renewcommand{\arraystretch}{1.05}
+  \begin{tabularx}{\linewidth}{L{1.95cm}L{1.05cm}ccL{3.55cm}L{1.25cm}Y}
     \toprule
     Case & Version & Run & Exit & Checker result & Duration (s) & Observed symptom \\
     \midrule
@@ -30,5 +30,9 @@
     docker\_27037 & fixed & 2 & 0 & FIXED\_PASS        & 1.009 & \texttt{v1.17}--\texttt{v1.20} once each \\
     docker\_27037 & fixed & 3 & 0 & FIXED\_PASS        & 1.010 & \texttt{v1.17}--\texttt{v1.20} once each \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
+  \vspace{0.5em}
+
+  \parbox{\linewidth}{\scriptsize\color{midgray}
+    Raw logs: \path{report/results/week2_full_suite/run-20261114T075540Z-JMQOiG/}.}
 \end{table}
