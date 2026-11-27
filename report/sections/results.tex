@@ -10,12 +10,14 @@ $1.00$ and a sample standard deviation of $0.00$. These statistics describe
 only that indicator; they are not run times and are not the paper's aggregate
 detection rates.
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \caption{Official Week~2 outcomes (mean $\pm$ sample std of the
     expected-outcome indicator over three runs).}
   \label{tab:week2-outcomes}
-  \begin{tabular}{llccc}
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \begin{tabularx}{\linewidth}{L{3.2cm}L{1.4cm}Ycc}
     \toprule
     Case & Version & Expected result & Matches & Indicator mean $\pm$ std \\
     \midrule
@@ -26,7 +28,7 @@ detection rates.
     Docker \#27037    & buggy & EXPECTED\_RACE     & 3/3 & $1.00 \pm 0.00$ \\
     Docker \#27037    & fixed & FIXED\_PASS        & 3/3 & $1.00 \pm 0.00$ \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 The two blocking cases were exposed by the \texttt{go test} timeout, not by
@@ -36,27 +38,32 @@ race detector fired every time, and the printed versions contained duplicates
 (for example \texttt{v1.19 v1.21 v1.21 v1.21}); the fixed version printed
 \texttt{v1.17} to \texttt{v1.20} once each in every run.
 
+\Needspace{19\baselineskip}
 \subsection{Paper vs.\ Ours}
-\begin{table}[h]
+\Cref{tab:paper-vs-ours} compares each paper claim with the evidence from
+our selected cases. Distinct-bug coverage and repeated-run outcomes have
+different denominators, so these columns should not be read as matched rates.
+\begin{table}[H]
   \centering
   \caption{Paper claims and reproduction evidence. Aggregate bug
 proportions and repeated-run outcomes use different denominators.}
   \label{tab:paper-vs-ours}
-  \begin{tabular}{llll}
+  \small
+  \begin{tabularx}{\linewidth}{L{1.05cm}YYY}
     \toprule
     Claim & Metric & Paper & Ours \\
     \midrule
-    C1 & \shortstack[l]{Message-passing share\\of blocking bugs}
-       & \shortstack[l]{About 58\%\\\cite{tu2019go}, Sec.~1}
-       & \shortstack[l]{Not estimated;\\selected cases only} \\
-    C2 & \shortstack[l]{Runtime deadlock\\diagnosis}
-       & \shortstack[l]{2/21 distinct bugs\\\cite{tu2019go}, Table 8}
-       & \shortstack[l]{\#25384: 0/3 diagnoses\\3/3 test timeouts} \\
-    C3 & \shortstack[l]{Data race\\detector report}
-       & \shortstack[l]{10/20 distinct bugs\\3/4 closure bugs\\\cite{tu2019go}, Table 12}
-       & \shortstack[l]{\#27037: 3/3 buggy runs\\with warnings} \\
+    C1 & Message-passing share of blocking bugs
+       & About 58\% (\cite{tu2019go}, Sec.~1)
+       & Not estimated; selected cases only \\
+    C2 & Runtime deadlock diagnosis
+       & 2/21 distinct bugs (\cite{tu2019go}, Table 8)
+       & \#25384: 0/3 diagnoses; 3/3 test timeouts \\
+    C3 & Data race detector report
+       & 10/20 distinct bugs; 3/4 closure bugs (\cite{tu2019go}, Table 12)
+       & \#27037: 3/3 buggy runs with warnings \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 \subsection{Channel Reproduction Results}
@@ -69,7 +76,7 @@ the expected symptom and 0 otherwise. Both cases matched their expected
 outcome in all three runs (3/3), giving an indicator mean of 1.00 and a
 sample standard deviation of 0.00.
 
-\paragraph{Kubernetes \#5316 (Figure~1).}
+\paragraph{Kubernetes \#5316 (paper Figure~1).}
 In all three runs, the test timed out after five seconds, and the worker
 stack showed \texttt{[chan send]}. The parent stops receiving after its
 timeout. The worker then attempts to send on an unbuffered channel,
@@ -78,7 +85,7 @@ Our model deliberately orders these events and adds a test-only wait
 to keep the blocked worker observable. The resulting test timeout is
 not a report from Go's runtime deadlock detector.
 
-\paragraph{Docker \#24007 (Figure~10).}
+\paragraph{Docker \#24007 (paper Figure~10).}
 All three runs terminated with an unrecovered
 \texttt{close of closed channel} panic. Both workers are forced to
 enter the \texttt{default} branch before either closes the channel.
@@ -99,13 +106,13 @@ natural triggering probabilities in the original applications.
 
 \paragraph{Evidence.}
 These results use the official archive
-\texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}:
+\path{report/results/week2_full_suite/run-20261114T075540Z-JMQOiG/}:
 \texttt{k8s\_5316\_buggy\_1.log} through
 \texttt{k8s\_5316\_buggy\_3.log}, and
 \texttt{docker\_24007\_buggy\_1.log} through
 \texttt{docker\_24007\_buggy\_3.log}.
 The corresponding records and indicator statistics are available in
-\texttt{report/data/test\_record.csv} and the archive's
+\path{report/data/test_record.csv} and the archive's
 \texttt{statistics.csv}, respectively.
 
 \subsection{Shared-Memory Reproduction Results}
@@ -134,22 +141,27 @@ Figure~\ref{fig:shared-memory-comparison} summarizes the official Week~2 evidenc
 and the right panel of Figure~\ref{fig:race-detection} shows the number
 of runs with race warnings for each variant.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/shared_memory_comparison.pdf}
+  \includegraphics[width=0.96\linewidth]{figures/shared_memory_comparison.pdf}
   \caption{Shared-memory evidence from the official Week~2 archive.
-    The expected-outcome bars describe the expected symptom in the
-    buggy versions and a passing test in the fixed versions. The
-    detector panels show the paper's distinct-bug counts and the
-    team's race-warning incidences across repeated runs.}
+    The left panel reports official-checker matches. The right panel
+    separates test timeouts from race warnings, emphasizing that the
+    timeout harness and Go's race detector expose different symptoms.}
   \label{fig:shared-memory-comparison}
 \end{figure}
 
-\subsection{Visualization}
+\clearpage
+\subsection{Visual Summary}
+The following figures consolidate the reproduction evidence from two
+complementary perspectives. Figure~\ref{fig:reproduction-outcomes} reports
+whether each repeated run matched its expected checker outcome, while
+Figure~\ref{fig:race-detection} separates the paper's distinct-bug benchmark
+from the run-level race-warning counts in our selected cases.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/reproduction_outcomes.pdf}
+  \includegraphics[width=0.96\linewidth]{figures/reproduction_outcomes.pdf}
   \caption{Reproduction outcomes under Go 1.10.8. Each bar shows the
     fraction of three runs that matched the expected outcome for the
     corresponding case and version. The labels identify the outcome
@@ -157,9 +169,9 @@ of runs with race warnings for each variant.
   \label{fig:reproduction-outcomes}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/race_detection.pdf}
+  \includegraphics[width=0.96\linewidth]{figures/race_detection.pdf}
   \caption{Race detection in the paper and in our reproduction. The left
     panel shows the counts from Table~12 of Tu et al.~\cite{tu2019go},
     where a non-blocking bug counted as detected if the detector reported
@@ -170,12 +182,15 @@ of runs with race warnings for each variant.
   \label{fig:race-detection}
 \end{figure}
 
+\clearpage
 \subsection{Test Record}
+Table~\ref{tab:test-record} retains the complete run-level record used for
+the Week~2 summary while keeping the main comparisons above visually concise.
 \input{tables/test_record}
 
 \subsection{Traceability}
 The official Week~2 evidence directory is
-\texttt{report/results/week2\_full\_suite/run-20261114T075540Z-JMQOiG/}.
+\path{report/results/week2_full_suite/run-20261114T075540Z-JMQOiG/}.
 It contains \texttt{environment.txt}, \texttt{summary.tsv},
 \texttt{statistics.csv}, \texttt{input\_sha256.txt} and one \texttt{.log} file
 per case and iteration. Every number in \Cref{tab:week2-outcomes} and
@@ -184,9 +199,9 @@ per case and iteration. Every number in \Cref{tab:week2-outcomes} and
 merged later as pull request \#5 (\texttt{68df8a3}).
 
 \paragraph{Week~3 evidence.}
-The figures and shared-memory results use the three-round run
+Figures~\ref{fig:reproduction-outcomes} and~\ref{fig:race-detection} use the three-round run
 \texttt{run-20261116T150500Z-ixxI8j}, archived under
-\texttt{report/results/week3\_full\_suite/}.
+\path{report/results/week3_full_suite/}.
 Figure~\ref{fig:reproduction-outcomes} uses \texttt{summary.tsv},
 which records the checker outcome and source log for every run.
 \texttt{statistics.csv} records the mean and sample standard deviation

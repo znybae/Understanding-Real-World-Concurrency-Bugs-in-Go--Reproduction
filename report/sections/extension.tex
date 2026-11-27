@@ -24,8 +24,8 @@ machine, with unchanged bug source files copied into \texttt{extension/workspace
 (C) the same Go 1.23.12 binary with \texttt{go 1.22} in \texttt{go.mod} (new loop rule).
 A vs.\ B isolates the toolchain and runtime; B vs.\ C isolates the language rule.
 The modern toolchain is the official tarball
-\texttt{go1.23.12.linux-amd64.tar.gz}
-(SHA256 \texttt{d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90}),
+\path{go1.23.12.linux-amd64.tar.gz}
+(SHA256 \path{d3847fef834e9db11bf64e3fb34db9c04db14e068eeb064f49af747010454f90}),
 run with \texttt{GOTOOLCHAIN=local}.
 \texttt{go list -m} recorded the module language version as 1.21 under configuration~B
 and 1.22 under configuration~C.
@@ -37,8 +37,8 @@ the same per-test timeouts, and unset \texttt{GOMAXPROCS} were kept identical.
 The host was a native x86\_64 Debian GNU/Linux 13.7 machine (kernel 6.12.113+,
 8 CPUs, Docker 29.10.0) with no architecture emulation. Both images used GCC 7.5.0.
 The official evidence directory is
-\texttt{extension/results/run-20261118T115819Z-IAbvyc/};
-the per-run table is also stored as \texttt{report/data/extension\_record.csv}.
+\path{extension/results/run-20261118T115819Z-IAbvyc/};
+the per-run table is also stored as \path{report/data/extension_record.csv}.
 Configuration~A on this host is the paired baseline. The official Week~2 WSL2
 run is discussed only as context in \Cref{sec:analysis}.
 
@@ -61,7 +61,7 @@ passed.
         (\texttt{v1.21} in nine runs, \texttt{v1.20} in one).
         Configuration~C produced no race warning in any run, exited 0, and printed
         each of \texttt{v1.17}--\texttt{v1.20} once in all 10 runs.
-        The official checker therefore reports \texttt{UNEXPECTED\_OR\_NOT\_REPRODUCED}
+        The official checker therefore reports \path{UNEXPECTED_OR_NOT_REPRODUCED}
         for all 10 C runs: it still expects \texttt{EXPECTED\_RACE}.
   \item \textbf{Figure 8, Docker \#27037 (fixed).}
         All 30 runs (10 per configuration) passed, printed the unique version set,
